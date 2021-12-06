@@ -1,25 +1,13 @@
 const express = require('express')
 const app = express()
 const port = 3000
+const pool = require('./db/db.js')
 
 app.use(express.json())
 
 
-const mysql = require('mysql2')
-// Create the connection pool. The pool-specific settings are the defaults
-const pool = mysql.createPool({
-    host: 'localhost',
-    user: 'root',
-    password: '2512',
-    database: 'test',
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0
-});
-
-
 app.get('/', (req, res) => {
-    pool.getConnection(function (err, conn) {
+    pool.getConnection((err, conn) => {
         // Do something with the connection
         conn.query('select * from test.user', function (err, rows, fields) {
             // Connection is automatically released when query resolves
@@ -29,6 +17,16 @@ app.get('/', (req, res) => {
         pool.releaseConnection(conn);
     })
 })
+
+// pool.getConnection((err, conn) => {
+//     // Do something with the connection
+//     conn.query('select * from test.user', function (err, rows, fields) {
+//         // Connection is automatically released when query resolves
+//         console.log(rows)
+//     });
+
+//     pool.releaseConnection(conn);
+// })
 
 
 
