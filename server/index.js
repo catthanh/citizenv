@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
         pool.releaseConnection(conn);
     })
 })
-
+// aaaa
 // pool.getConnection((err, conn) => {
 //     // Do something with the connection
 //     conn.query('select * from test.user', function (err, rows, fields) {
