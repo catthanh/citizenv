@@ -1,35 +1,24 @@
-const express = require('express')
-const app = express()
-const port = 3000
-const pool = require('./db/db.js')
+const express = require("express");
+const cors = require("cors");
 
-app.use(express.json())
+const app = express();
+app.use(cors());
 
+// parse requests of content-type - application/json
+app.use(express.json());
 
-app.get('/', (req, res) => {
-    pool.getConnection((err, conn) => {
-        // Do something with the connection
-        conn.query('select * from test.user', function (err, rows, fields) {
-            // Connection is automatically released when query resolves
-            res.send(rows)
-        });
+// parse requests of content-type - application/x-www-form-urlencoded
+app.use(express.urlencoded({ extended: true }));
 
-        pool.releaseConnection(conn);
-    })
-})
-// aaaa
-// pool.getConnection((err, conn) => {
-//     // Do something with the connection
-//     conn.query('select * from test.user', function (err, rows, fields) {
-//         // Connection is automatically released when query resolves
-//         console.log(rows)
-//     });
+const routesHandler = require("./routes/handler");
 
-//     pool.releaseConnection(conn);
-// })
+const port = 3000;
+const pool = require("./config/pool.js");
 
+app.use(express.json());
 
+app.use("/", routesHandler);
 
 app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
-})
+  console.log(`Example app listening at http://localhost:${port}`);
+});
