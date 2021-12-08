@@ -1,0 +1,71 @@
+
+
+POST http://localhost:3000/api/login HTTP/1.1
+content-type: application/json
+
+{
+    "username": "thanh2",
+    "password": "1312"
+}
+###
+PUT http://localhost:3000/api/createprovince HTTP/1.1
+content-type: application/json
+
+{
+    "userid": "2",
+    "name": "sample",
+    "addressCode": "23"
+}
+###
+POST api/createaccount HTTP/1.1
+content-type: application/json
+{
+    "name": "sample",
+    "password": "123456",
+    "role": "",
+    "addressCode": ""
+}
+###
+POST api/opendeclaration HTTP/1.1
+content-type: application/json
+{
+    "addressCode": "",
+}
+###
+POST api/checkprogress HTTP/1.1
+content-type: application/json
+{
+    "addressCode": "",
+}
+###
+GET api/citizenlist HTTP/1.1
+content-type: application/json
+{
+    "addressCode": "",
+}
+###
+GET api/citizeninfo HTTP/1.1
+content-type: application/json
+{
+    "citizenId": "",
+}
+###
+PUT api/inputdata HTTP/1.1
+content-type: application/json
+{
+    "citizenId": "",
+}
+###
+GET api/printform HTTP/1.1
+content-type: application/json
+{
+    "addressCode": "",
+}
+###
+POST api/reportcompletion HTTP/1.1
+content-type: application/json
+{
+    "addressCode": "",
+}
+
+// phan tich so lieu 
