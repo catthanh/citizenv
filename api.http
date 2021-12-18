@@ -17,19 +17,22 @@ content-type: application/json
     "addressCode": "23"
 }
 ###
-POST api/createaccount HTTP/1.1
+PUT http://localhost:3000/api/createaccount HTTP/1.1
 content-type: application/json
+
 {
-    "name": "sample",
+    "username": "sample2",
     "password": "123456",
-    "role": "",
+    "role": "A2",
     "addressCode": ""
 }
 ###
-POST api/opendeclaration HTTP/1.1
+POST http://localhost:3000/api/opendeclaration HTTP/1.1
 content-type: application/json
+
 {
-    "addressCode": "",
+    "addressCode": "2",
+    "openDeclaration": "true"
 }
 ###
 POST api/checkprogress HTTP/1.1
