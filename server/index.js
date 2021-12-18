@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 
 const routesHandler = require("./routes/handler");
 
-const port = 3000;
+const port = 5000;
 const pool = require("./config/pool.js");
 
 app.use(express.json());
@@ -20,5 +20,5 @@ app.use(express.json());
 app.use("/", routesHandler);
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+    console.log(`Example app listening at http://localhost:${port}`);
 });
