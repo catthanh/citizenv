@@ -27,4 +27,19 @@ router.put("/api/createprovince", async (req, res) => {
     }
 });
 
+router.put("/api/createaccount", async (req, res) => {
+    const {username, role,  password, addressCode} = req.body;
+    const a1 = new UserA1(username, password);
+    res.json(await a1.createAccount(addressCode, role, username, password));
+});
+
+router.post("/api/opendeclaration", async (req, res) => {
+    const {addressCode, openDeclaration} = req.body;
+    if(!await UserA1.openDeclaration(addressCode))
+        res.json({ status: "error", message: "sai tên tài khoản" });
+    else if(openDeclaration === "false")
+        res.json({ status: "ok", message: "không được cấp" });
+    else res.json({ status: "ok", message: "đã cấp thành công" });
+});
+
 module.exports = router;
