@@ -54,6 +54,23 @@ class User {
         }
         return null;
     }
+    
+    
+    async createUser() {
+        const qry = `INSERT INTO users(address_code, role, username, password) VALUES(?,?,?,?)`;
+        try {
+            console.log('creat user');
+            const [rows, fields] = await pool.query(qry, [
+                this.addressCode,
+                this.role,
+                this.username,
+                this.password,
+            ]);
+            return rows;
+        } catch (error) {
+            return error;
+        }
+    }
 }
 
 module.exports = User;
