@@ -32,13 +32,13 @@ class UserA1 extends User {
     async createAccount(addressCode, role, username, password) {
         let user = new User(username, password, role, addressCode);
         let province = new Province(addressCode, username);
-        if(await user.checkIfExists()) {
-            console.log('error create');
+        if (await user.checkIfExists()) {
+            console.log("error create");
             return {
                 status: "error",
                 message: "tên tài khoản đã tồn tại",
             };
-        } else if(!await province.checkIfNameExists()) {
+        } else if (!(await province.checkIfNameExists())) {
             return {
                 status: "error",
                 message: "tên tài khoản phải trùng tên tỉnh/thành phố",
@@ -46,7 +46,7 @@ class UserA1 extends User {
         } else {
             const create = await user.createUser();
             console.log(create);
-            console.log('created');
+            console.log("created");
             return {
                 status: "ok",
                 message: "tạo tài khoản thành công",
@@ -55,15 +55,17 @@ class UserA1 extends User {
     }
     // mo quyen khai bao
     static async openDeclaration(addressCode) {
+        // check role=admin/a1 full quyen
+
         try {
-            if (await User.findUserById(addressCode)) 
-                return true;
+            if (await User.findUserByAddressCode(addressCode)) return true;
         } catch (error) {
             console.log(error);
         }
-        
+
         return false;
     }
+    // dong khai bao
     // theo doi tien do
     checkProgress() {}
     //phan tich

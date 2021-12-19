@@ -54,6 +54,24 @@ class User {
         }
         return null;
     }
+    static async findUserByAddressCode(addressCode) {
+        const qry = `SELECT * FROM users where address_code= ?`;
+        console.log("object");
+        try {
+            const [rows, fields] = await pool.query(qry, [addressCode]);
+            console.log(rows[0].username);
+            if (rows.length == 1) {
+                return new User(
+                    rows[0].username,
+                    rows[0].password,
+                    rows[0].role
+                );
+            }
+        } catch (error) {
+            console.log(error);
+        }
+        return null;
+    }
 }
 
 module.exports = User;
