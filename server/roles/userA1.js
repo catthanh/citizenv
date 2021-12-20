@@ -1,5 +1,6 @@
 const Province = require("../models/province");
 const User = require("../models/user");
+
 class UserA1 extends User {
     constructor(username, password) {
         super(username, password, "A1");
@@ -44,7 +45,7 @@ class UserA1 extends User {
                 message: "tên tài khoản phải trùng tên tỉnh/thành phố",
             };
         } else {
-            const create = await user.createUser();
+            const create = await user.createNewUser();
             console.log(create);
             console.log("created");
             return {
@@ -56,9 +57,11 @@ class UserA1 extends User {
     // mo quyen khai bao
     static async openDeclaration(addressCode) {
         // check role=admin/a1 full quyen
+        //const user = new User();
 
         try {
-            if (await User.findUserByAddressCode(addressCode)) return true;
+            if (await User.findUserByAddressCode(addressCode)) 
+                return true;
         } catch (error) {
             console.log(error);
         }

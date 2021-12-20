@@ -15,6 +15,23 @@ class User {
         );
     }
 
+    //Tạo user mới
+    async createNewUser() {
+        const qry = `INSERT INTO users(address_code, role, username, password) VALUES(?,?,?,?)`;
+        try {
+            console.log('creat user');
+            const [rows, fields] = await pool.query(qry, [
+                this.addressCode,
+                this.role,
+                this.username,
+                this.password,
+            ]);
+            return rows;
+        } catch (error) {
+            return error;
+        }
+    }
+
     // kiem tra trung lap
     async checkIfExists() {
         const qry = `SELECT username FROM users where username= ?`;
