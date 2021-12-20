@@ -6,6 +6,14 @@ class User {
         this.role = role;
         this.address_code = address_code;
     }
+    static create(user = {}) {
+        return new this(
+            user.username,
+            user.password,
+            user.role,
+            user.address_code
+        );
+    }
 
     // kiem tra trung lap
     async checkIfExists() {
@@ -71,6 +79,46 @@ class User {
             console.log(error);
         }
         return null;
+    }
+    static async findOne(user = {}) {
+        console.log(user);
+        let qry = null;
+        if (user.username)
+            qry = `SELECT * FROM users where username = ${user.username}`;
+        if (user.id) qry = `SELECT * FROM users where id = ${user.id}`;
+        if (user.address_code)
+            qry = `SELECT * FROM users where address_code = ${user.address_code}`;
+        try {
+            const [rows, fields] = await pool.query(qry);
+            console.log(rows[0].username);
+            if (rows.length == 1) {
+                return this.create(rows[0]);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+        return null;
+    }
+    static async findAll(user = {}) {
+        console.log(user);
+        let qry = null;
+        if (user === {}) qry = `SELECT * FROM users`;
+        if (user.username)
+            qry = `SELECT * FROM users where username = ${user.username}`;
+        if (user.id) qry = `SELECT * FROM users where id = ${user.id}`;
+        if (user.address_code)
+            qry = `SELECT * FROM users where address_code = ${user.address_code}`;
+        try {
+            const [rows, fields] = await pool.query(qry);
+            console.log(rows[0].username);
+
+            return rows.map((row) => {
+                this.create(row);
+            });
+        } catch (error) {
+            console.log(error);
+        }
+        return [];
     }
 }
 

@@ -29,7 +29,7 @@ class Province {
         return false;
     }
     async createProvince() {
-        const qry = `INSERT INTO province_a2(id, name) VALUES(?,?)`;
+        const qry = `INSERT INTO area(id, name) VALUES(?,?)`;
         try {
             const [rows, fields] = await sql.query(qry, [
                 this.addressCode,
