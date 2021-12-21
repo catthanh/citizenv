@@ -41,6 +41,16 @@ class Province {
             return error;
         }
     }
+
+    async getProvinceInfo() {
+        const sql = `SELECT address_code FROM area WHERE CHAR_LENGTH(address_code) = 2`;
+        try {
+            const [rows, fields] = await pool.query(qry);
+            return rows;
+        } catch (error) {
+            return error;
+        }
+    }
     // check if belongto
     // check role this.addresscode.length >= addressCode.length ko quyen
     // lay this.addressCode.length slice so sanh neu hai chuoi trung nhau thi co quyen

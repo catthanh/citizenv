@@ -70,8 +70,12 @@ class UserA1 extends User {
     checkProgress() {}
     //phan tich
 
+    
+
     // xem danh sach
-    citizenList() {}
+    citizenList(province) {
+        let 
+    }
     // xem thong tin mot nguoi dan bat ki
     citizenInfo() {}
 }

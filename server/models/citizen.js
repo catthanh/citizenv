@@ -23,6 +23,7 @@ class Citizen {
         return null;    
     }
 
+
     //Lấy ra thông tin người dân trên 1 tỉnh
     async getCitizenListFromProvince(provinceCode) {
         const sql = `SELECT * FROM citizen c WHERE address_code LIKE '?%'`;
@@ -41,8 +42,7 @@ class Citizen {
     //Láy ra thông tin người dân trên 1 thành phố hoặc địa phương
     async getCitizenListFromCity(provinceCode, districtCode) {
         const sql = `SELECT * FROM citizen c
-                    JOIN area_b1 b ON c.address_code = b.id
-                    WHERE b.id = ?`;
+                    WHERE addresss_code LIKE '?%'`;
         try {
             provinceCode = provinceCode.toString();
             districtCode = districtCode.toString();
@@ -50,6 +50,32 @@ class Citizen {
             const [rows, fields] = await pool.query(sql, [districtID]);
             console.log(rows);
             if (rows.length > 0) {
+                return rows;
+            }
+        } catch (error) {
+            console.log(error);
+        }
+        return null;
+    }
+
+    getCitizenListFromLastName(lastname) {
+        const sql = `SELECT concat(first_name, ' ' ,last_name) as fullname FROM citizen WHERE last_name LIKE '?%'`;
+        try {
+            const [rows, fields] = await pool.query(sql, [lastname]);
+            if(rows.length > 0) {
+                return rows;
+            }
+        } catch (error) {
+            console.log(error);
+        }
+        return null;
+    }
+
+    getCitizenListFromLastName(firstname) {
+        const sql = `SELECT concat(first_name, ' ' ,last_name) as fullname FROM citizen WHERE first_name LIKE '?%'`;
+        try {
+            const [rows, fields] = await pool.query(sql, [firstname]);
+            if(rows.length > 0) {
                 return rows;
             }
         } catch (error) {
@@ -69,6 +95,8 @@ class Citizen {
             console.log(error);
         }
     }
+
+    
 }
 
 module.exports = Citizen;
