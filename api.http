@@ -4,8 +4,8 @@ POST http://localhost:5000/api/login HTTP/1.1
 content-type: application/json
 
 {
-    "username": "thanh1",
-    "password": "1312"
+    "username": "thanh",
+    "password": "1213"
 }
 ###
 PUT http://localhost:5000/api/createprovince HTTP/1.1
@@ -41,10 +41,11 @@ content-type: application/json
     "addressCode": "",
 }
 ###
-GET api/citizenlist HTTP/1.1
+GET http://localhost:5000/api/citizenlist HTTP/1.1
 content-type: application/json
+
 {
-    "addressCode": "",
+    "userid": "2"
 }
 ###
 GET api/citizeninfo HTTP/1.1

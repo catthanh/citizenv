@@ -1,5 +1,6 @@
 const Province = require("../models/province");
 const User = require("../models/user");
+const Citizen = require("../models/citizen");
 class UserA1 extends User {
     constructor(username, password) {
         super(username, password, "A1");
@@ -70,14 +71,21 @@ class UserA1 extends User {
     checkProgress() {}
     //phan tich
 
-    
+    //xem danh sach
+    async citizenList() {
+        let citizen = new Citizen();
+        const data = await citizen.getCitizenList();
+        console.log(data);
+        return data;
+    }
 
-    // xem danh sach
-    citizenList(province) {
-        let 
+    // xem danh sach tren 1 tinh
+    async citizenListFromProvince(province) {
+        let citizen = Citizen();
+        return citizen.getCitizenListFromProvince(province);
     }
     // xem thong tin mot nguoi dan bat ki
-    citizenInfo() {}
+    async citizenInfo() {}
 }
 
 module.exports = UserA1;

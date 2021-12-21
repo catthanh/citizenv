@@ -1,3 +1,4 @@
+const { json } = require("express");
 const { end } = require("../config/pool");
 const pool = require("../config/pool");
 class Citizen {
@@ -12,11 +13,10 @@ class Citizen {
         const sql = `SELECT * FROM citizen`;
         try {
             const [rows, fields] = await pool.query(sql);
-            console.log(rows);
+            //console.log(rows);
             if (rows.length > 0) {
                 return rows;
             }
-            
         } catch (error) {
             console.log(error);
         }
@@ -58,31 +58,31 @@ class Citizen {
         return null;
     }
 
-    getCitizenListFromLastName(lastname) {
-        const sql = `SELECT concat(first_name, ' ' ,last_name) as fullname FROM citizen WHERE last_name LIKE '?%'`;
-        try {
-            const [rows, fields] = await pool.query(sql, [lastname]);
-            if(rows.length > 0) {
-                return rows;
-            }
-        } catch (error) {
-            console.log(error);
-        }
-        return null;
-    }
+    // getCitizenListFromLastName(lastname) {
+    //     const sql = `SELECT concat(first_name, ' ' ,last_name) as fullname FROM citizen WHERE last_name LIKE '?%'`;
+    //     try {
+    //         const [rows, fields] = await pool.query(sql, [lastname]);
+    //         if(rows.length > 0) {
+    //             return rows;
+    //         }
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    //     return null;
+    // }
 
-    getCitizenListFromLastName(firstname) {
-        const sql = `SELECT concat(first_name, ' ' ,last_name) as fullname FROM citizen WHERE first_name LIKE '?%'`;
-        try {
-            const [rows, fields] = await pool.query(sql, [firstname]);
-            if(rows.length > 0) {
-                return rows;
-            }
-        } catch (error) {
-            console.log(error);
-        }
-        return null;
-    }
+    // getCitizenListFromLastName(firstname) {
+    //     const sql = `SELECT concat(first_name, ' ' ,last_name) as fullname FROM citizen WHERE first_name LIKE '?%'`;
+    //     try {
+    //         const [rows, fields] = await pool.query(sql, [firstname]);
+    //         if(rows.length > 0) {
+    //             return rows;
+    //         }
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    //     return null;
+    // }
 
     async getCitizenInfo(ID) {
         const sql = `SELECT * FROM citizen WHERE id = ?`;

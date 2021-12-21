@@ -18,6 +18,7 @@ class Province {
         console.log("checke4");
         return false;
     }
+    
     async checkIfNameExists() {
         const qry = `SELECT name FROM area where name= ?`;
         try {
