@@ -35,7 +35,13 @@ router.put("/api/createaccount", async (req, res) => {
 
 router.post("/api/opendeclaration", async (req, res) => {
     const { addressCode, openDeclaration } = req.body;
-    if (!(await UserA1.openDeclaration(addressCode)))
+    const user = await User.findOne({ address_code: addressCode });
+    const userA1 = new UserA1(user.username, user.password);
+    console.log(user);
+    if(user.role === 'A1' || user.role === 'admin') {
+        res.json({ status: "ok", message: "full quyền" });
+    }
+    else if (!userA1.openDeclaration(addressCode))
         res.json({ status: "error", message: "sai tên tài khoản" });
     else if (openDeclaration === "false")
         res.json({ status: "ok", message: "không được cấp" });

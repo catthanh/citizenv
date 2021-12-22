@@ -41,18 +41,6 @@ class Province {
             return error;
         }
     }
-    // check if belongto
-    // check role this.addresscode.length >= addressCode.length ko quyen
-    // lay this.addressCode.length slice so sanh neu hai chuoi trung nhau thi co quyen
-    // 11; 1122->11
-    checkIfBelongTo(addressCode) {
-        if (this.addresscode.length >= addressCode.length) {
-            return false;
-        }
-
-        return true;
-    }
-
     //
 }
 module.exports = Province;

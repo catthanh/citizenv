@@ -55,12 +55,13 @@ class UserA1 extends User {
         }
     }
     // mo quyen khai bao
-    static async openDeclaration(addressCode) {
+    async openDeclaration(addressCode) {
         // check role=admin/a1 full quyen
-        //const user = new User();
 
         try {
-            if (await User.findUserByAddressCode(addressCode)) 
+            const user = await User.findOne({ address_code: addressCode });
+            console.log(user);
+            if (user)
                 return true;
         } catch (error) {
             console.log(error);

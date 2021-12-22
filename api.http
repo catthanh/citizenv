@@ -31,8 +31,8 @@ POST http://localhost:5000/api/opendeclaration HTTP/1.1
 content-type: application/json
 
 {
-    "addressCode": "1101",
-    "openDeclaration": "true"
+    "addressCode": "0",
+    "openDeclaration": "false"
 }
 ###
 POST api/checkprogress HTTP/1.1
