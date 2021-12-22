@@ -75,15 +75,23 @@ class UserA1 extends User {
     async citizenList() {
         let citizen = new Citizen();
         const data = await citizen.getCitizenList();
-        console.log(data);
+        //console.log(data);
         return data;
     }
 
     // xem danh sach tren 1 tinh
     async citizenListFromProvince(province) {
-        let citizen = Citizen();
-        return citizen.getCitizenListFromProvince(province);
+        let citizen = new Citizen();
+        const data = await citizen.getCitizenListFromProvince(province);
+        return data;
     }
+
+    async citizenListFromCity(province, district) {
+        let citizen = new Citizen();
+        const data = await citizen.getCitizenListFromCity(province, district);
+        return data;
+    }
+
     // xem thong tin mot nguoi dan bat ki
     async citizenInfo() {}
 }

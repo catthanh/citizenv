@@ -45,15 +45,27 @@ router.post("/api/opendeclaration", async (req, res) => {
 router.get("/api/citizenlist", async (req, res) => {
     const { userid } = req.body;
     const user = await User.findOne({ id: userid });
-    if (!user && !user.role === "A1")
+    console.log(user.role);
+    if (!user || !user.role === "A1")
         res.json({ status: "error", message: "không được phép" });
     else if(user && user.role === "A1") {
         const a1 = new UserA1(user.username, user.password);
         res.json(await a1.citizenList());
-    } else {
-        res.json({ status: "error", message: "Có lỗi xảy ra" })
     }
 
 });
+
+router.get("/api/citizenlistfromprovince", async (req, res) => {
+    const { userid, province } = req.body;
+    const user = await User.findOne({ id: userid });
+    if (!user || !user.role === "A1")
+        res.json({ status: "error", message: "không được phép" });
+    else if(user && user.role === "A1") {
+        const a1 = new UserA1(user.username, user.password);
+        res.json(await a1.citizenListFromProvince(province));
+    }
+
+});
+
 
 module.exports = router;
