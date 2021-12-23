@@ -2,17 +2,22 @@ const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
-const UserA1 = require("../roles/userA1");
+const UserA1 = require("../controllers/UserController");
+const auth = require("../middleware/auth");
 
 router.post("/api/login", async (req, res) => {
     const { username, password } = req.body;
 
-    let user = new User(username, password);
-    if (!(await user.checkIfExists()))
+    let user = await User.findOne({ username });
+    console.log(user);
+    if (!user)
         res.json({ status: "error", message: "tài khoản không tồn tại" });
-    else if (!(await user.checkIfPasswordCorrect()))
+    else if (user.password != password)
         res.json({ status: "error", message: "sai mật khẩu" });
-    else res.json({ status: "ok", message: "đăng nhập thành công" });
+    else {
+        token = await jwt.sign(user.id, process.env.JWT_SECRET);
+        res.json({ status: "ok", message: "đăng nhập thành công", token });
+    }
 });
 
 router.put("/api/createprovince", async (req, res) => {

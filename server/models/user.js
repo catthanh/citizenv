@@ -1,23 +1,25 @@
 const pool = require("../config/pool");
 class User {
-    constructor(username, password, role = "", address_code = "") {
+    constructor(username, password, role = "", address_code = "", id = "") {
         this.username = username;
         this.password = password;
         this.role = role;
         this.address_code = address_code;
+        this.id = id;
     }
     static create(user = {}) {
         return new this(
             user.username,
             user.password,
             user.role,
-            user.address_code
+            user.address_code,
+            user.id
         );
     }
 
     // kiem tra trung lap
     async checkIfExists() {
-        const qry = `SELECT username FROM users where username= ?`;
+        const qry = "SELECT username FROM users where username= ?";
         try {
             const [rows, fields] = await pool.execute(qry, [this.username]);
             if (rows.length == 1) return true;
@@ -84,13 +86,13 @@ class User {
         console.log(user);
         let qry = null;
         if (user.username)
-            qry = `SELECT * FROM users where username = ${user.username}`;
+            qry = `SELECT * FROM users where username = "${user.username}"`;
         if (user.id) qry = `SELECT * FROM users where id = ${user.id}`;
         if (user.address_code)
             qry = `SELECT * FROM users where address_code = ${user.address_code}`;
         try {
             const [rows, fields] = await pool.query(qry);
-            console.log(rows[0].username);
+            console.log(rows.length);
             if (rows.length == 1) {
                 return this.create(rows[0]);
             }
