@@ -17,6 +17,23 @@ class User {
         );
     }
 
+    //Tạo user mới
+    async createNewUser() {
+        const qry = `INSERT INTO users(address_code, role, username, password) VALUES(?,?,?,?)`;
+        try {
+            console.log('creat user');
+            const [rows, fields] = await pool.query(qry, [
+                this.addressCode,
+                this.role,
+                this.username,
+                this.password,
+            ]);
+            return rows;
+        } catch (error) {
+            return error;
+        }
+    }
+
     // kiem tra trung lap
     async checkIfExists() {
         const qry = "SELECT username FROM users where username= ?";
@@ -83,7 +100,7 @@ class User {
         return null;
     }
     static async findOne(user = {}) {
-        console.log(user);
+        //console.log(user);
         let qry = null;
         if (user.username)
             qry = `SELECT * FROM users where username = "${user.username}"`;
@@ -112,7 +129,7 @@ class User {
             qry = `SELECT * FROM users where address_code = ${user.address_code}`;
         try {
             const [rows, fields] = await pool.query(qry);
-            console.log(rows[0].username);
+            console.log(rows[0].role);
 
             return rows.map((row) => {
                 this.create(row);
@@ -121,6 +138,18 @@ class User {
             console.log(error);
         }
         return [];
+    }
+
+    // check if belongto
+    // check role this.addresscode.length >= addressCode.length ko quyen
+    // lay this.addressCode.length slice so sanh neu hai chuoi trung nhau thi co quyen
+    // 11; 1122->11
+    checkIfBelongTo(addressCode) {
+        if (this.addressCode.length >= addressCode.length)
+            return false;
+        else if (addressCode.slice(0, this.addressCode.length) !== this.addressCode)
+            return false
+        return true;
     }
 }
 

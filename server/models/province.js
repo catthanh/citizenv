@@ -9,7 +9,7 @@ class Area {
         const qry = `SELECT id FROM area where id= ?`;
         try {
             console.log("checke2");
-            const [rows, fields] = await sql.query(qry, [this.addressCode]);
+            const [rows, fields] = await pool.query(qry, [this.addressCode]);
             console.log("checke3");
             if (rows.length == 1) return true;
         } catch (error) {
@@ -21,17 +21,18 @@ class Area {
     async checkIfNameExists() {
         const qry = `SELECT name FROM area where name= ?`;
         try {
-            const [rows, fields] = await sql.query(qry, [this.name]);
+            const [rows, fields] = await pool.query(qry, [this.name]);
             if (rows.length == 1) return true;
         } catch (error) {
             console.log(error);
         }
         return false;
     }
+
     async createProvince() {
-        const qry = `INSERT INTO area(id, name) VALUES(?,?)`;
+        const qry = `INSERT INTO area(address_code, name) VALUES(?,?)`;
         try {
-            const [rows, fields] = await sql.query(qry, [
+            const [rows, fields] = await pool.query(qry, [
                 this.addressCode,
                 this.name,
             ]);

@@ -4,8 +4,8 @@ POST http://localhost:5000/api/login HTTP/1.1
 content-type: application/json
 
 {
-    "username": "a",
-    "password": "1213"
+    "username": "thanh1",
+    "password": "1312"
 }
 ###
 PUT http://localhost:5000/api/createprovince HTTP/1.1
@@ -21,7 +21,7 @@ PUT http://localhost:5000/api/createaccount HTTP/1.1
 content-type: application/json
 
 {
-    "username": "sample2",
+    "username": "Quận Ba Đình",
     "password": "123456",
     "role": "A2",
     "addressCode": ""
@@ -31,8 +31,8 @@ POST http://localhost:5000/api/opendeclaration HTTP/1.1
 content-type: application/json
 
 {
-    "addressCode": "2",
-    "openDeclaration": "true"
+    "addressCode": "0",
+    "openDeclaration": "false"
 }
 ###
 POST api/checkprogress HTTP/1.1
