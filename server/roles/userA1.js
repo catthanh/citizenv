@@ -93,7 +93,9 @@ class UserA1 extends User {
     }
 
     // xem thong tin mot nguoi dan bat ki
-    async citizenInfo() {}
+    async citizenInfo(id) {
+        
+    }
 }
 
 module.exports = UserA1;

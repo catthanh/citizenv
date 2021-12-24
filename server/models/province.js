@@ -56,7 +56,13 @@ class Province {
     // check role this.addresscode.length >= addressCode.length ko quyen
     // lay this.addressCode.length slice so sanh neu hai chuoi trung nhau thi co quyen
     // 11; 1122->11
-    checkIfBelongTo() {}
+    checkIfBelongTo(provinceCode, cityCode) {
+        if(provinceCode.localeCompare(cityCode.slice(0, 2) == 0)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     //
 }

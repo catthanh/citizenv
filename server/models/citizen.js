@@ -58,6 +58,70 @@ class Citizen {
         return null;
     }
 
+    //Láy ra thông tin người dân trên 1 phường, xã
+    async getCitizenListFromCity(provinceCode, districtCode, wardCode) {
+        const sql = `SELECT * FROM citizen c
+                    WHERE addresss_code LIKE ?`;
+        try {
+            provinceCode = provinceCode.toString();
+            districtCode = districtCode.toString();
+            wardCode = wardCode.toString();
+            districtID = provinceCode + districtCode + wardCode;
+            const [rows, fields] = await pool.query(sql, [wardID + '%']);
+            console.log(rows);
+            if (rows.length > 0) {
+                return rows;
+            }
+        } catch (error) {
+            console.log(error);
+        }
+        return null;
+    }
+
+    //Lấy ra thông tin người dân trên 1 phường, xã
+    async getCitizenListFromCity(provinceCode, districtCode, wardCode) {
+        const sql = `SELECT * FROM citizen c
+                    WHERE addresss_code LIKE ?`;
+        try {
+            provinceCode = provinceCode.toString();
+            districtCode = districtCode.toString();
+            wardCode = wardCode.toString();
+            districtID = provinceCode + districtCode + wardCode;
+            const [rows, fields] = await pool.query(sql, [wardID + '%']);
+            console.log(rows);
+            if (rows.length > 0) {
+                return rows;
+            }
+        } catch (error) {
+            console.log(error);
+        }
+        return null;
+    }
+
+    //Lấy ra thông tin người dân trên 1 thôn, bản
+    async getCitizenListFromCity(provinceCode, districtCode, wardCode, areaCode) {
+        const sql = `SELECT * FROM citizen c
+                    WHERE addresss_code LIKE ?`;
+        try {
+            provinceCode = provinceCode.toString();
+            districtCode = districtCode.toString();
+            wardCode = wardCode.toString();
+            areaCode = areaCode.toString();
+            districtID = provinceCode + districtCode + wardCode + areaCode;
+            const [rows, fields] = await pool.query(sql, [areaID + '%']);
+            console.log(rows);
+            if (rows.length > 0) {
+                return rows;
+            }
+        } catch (error) {
+            console.log(error);
+        }
+        return null;
+    }
+
+    
+
+
     async getCitizenListFromLastName(lastname) {
         const sql = `SELECT concat(first_name, ' ' ,last_name) as fullname FROM citizen WHERE last_name LIKE ?`;
         try {
@@ -84,16 +148,23 @@ class Citizen {
         return null;
     }
 
+    
+
     async getCitizenInfo(ID) {
-        const sql = `SELECT * FROM citizen WHERE id = ?`;
+        const sql = `SELECT CONCAT(first_name, ' ', last_name) as fullname, address_code FROM citizen WHERE id = ?`;
         try {
             const [rows, fields] = await pool.query(sql, [ID]);
-            if(rows.length > 0) {
-                return rows;
+            if(rows[0].length == 1) {
+                return new Citizen(
+                    rows[0].id,
+                    rows[0].fullname,
+                    rows[0].address_code
+                );
             }
         } catch (error) {
             console.log(error);
         }
+        return null;
     }
 
     
