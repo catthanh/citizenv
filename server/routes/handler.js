@@ -63,8 +63,20 @@ router.get("/api/citizenlistfromprovince", async (req, res) => {
         const a1 = new UserA1(user.username, user.password);
         res.json(await a1.citizenListFromProvince(province));
     }
-
 });
+
+router.get("/api/citizeninfo", async (req, res) => {
+    const { userid, citizen_id } = req.body;
+    const user = await User.findOne({ id: userid });
+    if (!user || !user.role === "A1")
+        res.json({ status: "error", message: "không được phép" });
+    else if(user && user.role == "A1") {
+        const a1 = new UserA1(user.username, user.password);
+        res.json(await a1.citizenInfo(citizen_id));
+    }
+});
+
+
 
 
 

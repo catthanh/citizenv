@@ -93,9 +93,26 @@ class UserA1 extends User {
         return data;
     }
 
+    async citizenListFromWard(province, district, ward) {
+        let citizen = new Citizen();
+        const data = await citizen.getCitizenListFromWard(province, district, ward);
+        console.log(data);
+        return data;
+    }
+
+    async citizenListFromArea(province, district, ward, area) {
+        let citizen = new Citizen();
+        const data = await citizen.getCitizenListFromWard(province, district, ward, area);
+        console.log(data);
+        return data;
+    }
+
     // xem thong tin mot nguoi dan bat ki
-    async citizenInfo(id) {
-        
+    async citizenInfo(citizen_id) {
+        let citizen = new Citizen();
+        const data = await citizen.getCitizenInfo(citizen_id);
+        //console.log(data);
+        return data;
     }
 }
 

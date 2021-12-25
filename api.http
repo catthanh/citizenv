@@ -56,10 +56,13 @@ content-type: application/json
     "province": "37"
 }
 ###
-GET api/citizeninfo HTTP/1.1
+GET http://localhost:5000/api/citizeninfo HTTP/1.1
 content-type: application/json
+
 {
-    "citizenId": "",
+    "userid": 2,
+    "citizen_id": "1"
+
 }
 ###
 PUT api/inputdata HTTP/1.1

@@ -26,6 +26,7 @@ class Citizen {
                     WHERE c.address_code LIKE ?`;
         try {
             const [rows, fields] = await pool.query(sql, [provinceCode + '%']);
+            console.log(provinceCode);
             console.log(rows);
             if (rows.length > 0) {
                 return rows;
@@ -57,7 +58,7 @@ class Citizen {
     }
 
     //Láy ra thông tin người dân trên 1 phường, xã
-    async getCitizenListFromCity(provinceCode, districtCode, wardCode) {
+    async getCitizenListFromWard(provinceCode, districtCode, wardCode) {
         const sql = `SELECT * FROM citizen c
                     JOIN answer a ON c.id = a.id_citizen
                     WHERE addresss_code LIKE ?`;
@@ -65,28 +66,7 @@ class Citizen {
             provinceCode = provinceCode.toString();
             districtCode = districtCode.toString();
             wardCode = wardCode.toString();
-            districtID = provinceCode + districtCode + wardCode;
-            const [rows, fields] = await pool.query(sql, [wardID + '%']);
-            console.log(rows);
-            if (rows.length > 0) {
-                return rows;
-            }
-        } catch (error) {
-            console.log(error);
-        }
-        return null;
-    }
-
-    //Lấy ra thông tin người dân trên 1 phường, xã
-    async getCitizenListFromCity(provinceCode, districtCode, wardCode) {
-        const sql = `SELECT * FROM citizen c
-                    JOIN answer a ON c.id = a.id_citizen
-                    WHERE addresss_code LIKE ?`;
-        try {
-            provinceCode = provinceCode.toString();
-            districtCode = districtCode.toString();
-            wardCode = wardCode.toString();
-            districtID = provinceCode + districtCode + wardCode;
+            wardID = provinceCode + districtCode + wardCode;
             const [rows, fields] = await pool.query(sql, [wardID + '%']);
             console.log(rows);
             if (rows.length > 0) {
@@ -99,7 +79,7 @@ class Citizen {
     }
 
     //Lấy ra thông tin người dân trên 1 thôn, bản
-    async getCitizenListFromCity(provinceCode, districtCode, wardCode, areaCode) {
+    async getCitizenListFromArea(provinceCode, districtCode, wardCode, areaCode) {
         const sql = `SELECT * FROM citizen c
                     JOIN answer a ON c.id = a.id_citizen
                     WHERE addresss_code LIKE ?`;
@@ -108,8 +88,8 @@ class Citizen {
             districtCode = districtCode.toString();
             wardCode = wardCode.toString();
             areaCode = areaCode.toString();
-            districtID = provinceCode + districtCode + wardCode + areaCode;
-            const [rows, fields] = await pool.query(sql, [areaID + '%']);
+            areaID = provinceCode + districtCode + wardCode + areaCode;
+            const [rows, fields] = await pool.query(sql, [areaID]);
             console.log(rows);
             if (rows.length > 0) {
                 return rows;
@@ -184,27 +164,23 @@ class Citizen {
     }
 
     //Lấy thông tin của 1 người dân bất kỳ 
-    async getCitizenInfo(ID) {
+    async getCitizenInfo(citizenid) {
         const sql = `SELECT c.id, CONCAT(first_name, ' ', last_name) as fullname, address_code, q.cauhoi, a.answer FROM citizen c
-                    JOIN answer a ON a.id_citizen = c.id 
+                    JOIN answer a ON a.id_citizen = c.id
                     JOIN quiz q ON q.id = a.quiz_id
                     WHERE c.id = ?`;
         try {
-            const [rows, fields] = await pool.query(sql, [ID]);
-            if(rows[0].length == 1) {
-                return new Citizen(
-                    rows[0].id,
-                    rows[0].fullname,
-                    rows[0].address_code
-                );
-            }
+            const [rows, fields] = await pool.query(sql, [citizenid]);
+            //console.log(citizenid);
+            console.log(rows);
+            //if(rows.length > 0) {
+                return rows;
+            //}
         } catch (error) {
             console.log(error);
         }
         return null;
     }
-
-
 
     
 }
