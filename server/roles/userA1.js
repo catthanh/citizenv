@@ -89,6 +89,7 @@ class UserA1 extends User {
     async citizenListFromCity(province, district) {
         let citizen = new Citizen();
         const data = await citizen.getCitizenListFromCity(province, district);
+        console.log(data);
         return data;
     }
 

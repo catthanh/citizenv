@@ -45,14 +45,13 @@ router.post("/api/opendeclaration", async (req, res) => {
 router.get("/api/citizenlist", async (req, res) => {
     const { userid } = req.body;
     const user = await User.findOne({ id: userid });
-    console.log(user.role);
+    //console.log(user.role);
     if (!user || !user.role === "A1")
         res.json({ status: "error", message: "không được phép" });
     else if(user && user.role === "A1") {
         const a1 = new UserA1(user.username, user.password);
         res.json(await a1.citizenList());
     }
-
 });
 
 router.get("/api/citizenlistfromprovince", async (req, res) => {
@@ -60,12 +59,14 @@ router.get("/api/citizenlistfromprovince", async (req, res) => {
     const user = await User.findOne({ id: userid });
     if (!user || !user.role === "A1")
         res.json({ status: "error", message: "không được phép" });
-    else if(user && user.role === "A1") {
+    else if(user && user.role == "A1") {
         const a1 = new UserA1(user.username, user.password);
         res.json(await a1.citizenListFromProvince(province));
     }
 
 });
+
+
 
 
 module.exports = router;

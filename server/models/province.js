@@ -52,18 +52,26 @@ class Province {
             return error;
         }
     }
+
     // check if belongto
     // check role this.addresscode.length >= addressCode.length ko quyen
     // lay this.addressCode.length slice so sanh neu hai chuoi trung nhau thi co quyen
     // 11; 1122->11
     checkIfBelongTo(provinceCode, cityCode) {
-        if(provinceCode.localeCompare(cityCode.slice(0, 2) == 0)) {
-            return true;
-        } else {
+        if(provinceCode.length >= cityCode.length) {
+                var n = provinceCode.length - cityCode.length;
+                if(provinceCode.localeCompare(cityCode.slice(0, n) == 0)) {
+                    return true;
+                } else {
+                    return false;
+                }
+        } else if(provinceCode.length <= cityCode.length) {
             return false;
         }
-    }
+    }  
+    
 
-    //
+
+        
 }
 module.exports = Province;

@@ -45,7 +45,7 @@ GET http://localhost:5000/api/citizenlist HTTP/1.1
 content-type: application/json
 
 {
-    "userid": "2"
+    "userid": "3"
 }
 ###
 GET http://localhost:5000/api/citizenlistfromprovince HTTP/1.1
@@ -53,7 +53,7 @@ content-type: application/json
 
 {
     "userid": "2",
-    "province": "29"
+    "province": "37"
 }
 ###
 GET api/citizeninfo HTTP/1.1
