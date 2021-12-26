@@ -66,7 +66,7 @@ class Citizen {
             provinceCode = provinceCode.toString();
             districtCode = districtCode.toString();
             wardCode = wardCode.toString();
-            wardID = provinceCode + districtCode + wardCode;
+            var wardID = provinceCode + districtCode + wardCode;
             const [rows, fields] = await pool.query(sql, [wardID + '%']);
             console.log(rows);
             if (rows.length > 0) {
@@ -88,7 +88,7 @@ class Citizen {
             districtCode = districtCode.toString();
             wardCode = wardCode.toString();
             areaCode = areaCode.toString();
-            areaID = provinceCode + districtCode + wardCode + areaCode;
+            var areaID = provinceCode + districtCode + wardCode + areaCode;
             const [rows, fields] = await pool.query(sql, [areaID]);
             console.log(rows);
             if (rows.length > 0) {
@@ -144,20 +144,23 @@ class Citizen {
     //Lấy ra số người đã tốt nghiệp bậc thpt, đã tốt nghiệp bậc thcs, chưa tốt nghiệp
     static async getCitizenListCateByAcademicLevel(id) {
         const sql = `select count(case when a.answer < 9 then 1 end) as notGra,
-                    count(case when a.answer >= 9 then 1 end) as secondGra,
-		            count(case when a.answer >= 12 then 1 end) as thirdGra
+                    count(case when a.answer between 9 and 11 then 1 end) as secondGra,
+		            count(case when a.answer = 12 then 1 end) as thirdGra
                     from answer a 
                     JOIN citizen c on c.id = a.id_citizen
                     where a.quiz_id = 9 and c.address_code LIKE ?`;
         try {
             if(id !== '0') {
                 const [rows, fields] = await pool.query(sql, [id + '%']);
+                if (rows.length > 0) {
+                    return rows;
+                }
             } else {
                 const [rows, fields] = await pool.query(sql, ['%']);
-            }
-            if (rows.length > 0) {
-                return rows;
-            }
+                if (rows.length > 0) {
+                    return rows;
+                }
+            }         
         } catch (error) {
             console.log(error);
         }

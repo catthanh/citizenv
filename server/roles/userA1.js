@@ -107,6 +107,24 @@ class UserA1 extends User {
         return data;
     }
 
+    async citizenListCateByGender(id) {
+        const data = await Citizen.getCitizenListCateByGender(id);
+        console.log(data);
+        return data;
+    }
+
+    async citizenListCateByAged(id) {
+        const data = await Citizen.getCitizenListCateByAged(id);
+        console.log(data);
+        return data;
+    }
+
+    async citizenListCateByAcademicLevel(id) {
+        const data = await Citizen.getCitizenListCateByAcademicLevel(id);
+        console.log(data);
+        return data;
+    }
+
     // xem thong tin mot nguoi dan bat ki
     async citizenInfo(citizen_id) {
         // let citizen = new Citizen();

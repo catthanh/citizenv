@@ -75,6 +75,41 @@ content-type: application/json
 
 }
 ###
+GET http://localhost:5000/api/citizenlistfromward HTTP/1.1
+content-type: application/json
+
+{
+    "userid": "2",
+    "province": "29",
+    "city": "01",
+    "ward": "02"
+
+}
+###
+GET http://localhost:5000/api/citizenlistcatebygender HTTP/1.1
+content-type: application/json
+
+{
+    "userid": "2",
+    "areaid": "37"
+}
+###
+GET http://localhost:5000/api/citizenlistcatebyaged HTTP/1.1
+content-type: application/json
+
+{
+    "userid": "2",
+    "areaid": "37"
+}
+###
+GET http://localhost:5000/api/citizenlistcatebyacademiclevel HTTP/1.1
+content-type: application/json
+
+{
+    "userid": "2",
+    "areaid": ""
+}
+###
 PUT api/inputdata HTTP/1.1
 content-type: application/json
 {
