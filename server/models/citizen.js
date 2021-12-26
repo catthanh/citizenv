@@ -4,7 +4,7 @@ const pool = require("../config/pool");
 class Citizen {
 
     //Lấy ra thông tin người dân trên cả nước
-    async getCitizenList() {
+    static async getCitizenList() {
         const sql = `SELECT * FROM citizen c`;
         try {
             const [rows, fields] = await pool.query(sql);
@@ -20,7 +20,7 @@ class Citizen {
 
 
     //Lấy ra thông tin người dân trên 1 tỉnh
-    async getCitizenListFromProvince(provinceCode) {
+    static async getCitizenListFromProvince(provinceCode) {
         const sql = `SELECT * FROM citizen c 
                     JOIN answer a ON c.id = a.id_citizen
                     WHERE c.address_code LIKE ?`;
@@ -38,7 +38,7 @@ class Citizen {
     }
 
     //Láy ra thông tin người dân trên 1 thành phố hoặc địa phương
-    async getCitizenListFromCity(provinceCode, districtCode) {
+    static async getCitizenListFromCity(provinceCode, districtCode) {
         const sql = `SELECT * FROM citizen c
                     JOIN answer a ON c.id = a.id_citizen
                     WHERE addresss_code LIKE ?`;
@@ -58,7 +58,7 @@ class Citizen {
     }
 
     //Láy ra thông tin người dân trên 1 phường, xã
-    async getCitizenListFromWard(provinceCode, districtCode, wardCode) {
+    static async getCitizenListFromWard(provinceCode, districtCode, wardCode) {
         const sql = `SELECT * FROM citizen c
                     JOIN answer a ON c.id = a.id_citizen
                     WHERE addresss_code LIKE ?`;
@@ -79,7 +79,7 @@ class Citizen {
     }
 
     //Lấy ra thông tin người dân trên 1 thôn, bản
-    async getCitizenListFromArea(provinceCode, districtCode, wardCode, areaCode) {
+    static async getCitizenListFromArea(provinceCode, districtCode, wardCode, areaCode) {
         const sql = `SELECT * FROM citizen c
                     JOIN answer a ON c.id = a.id_citizen
                     WHERE addresss_code LIKE ?`;
@@ -101,7 +101,7 @@ class Citizen {
     }
 
     //Lấy ra số người giới tính nam, giới tính nữ
-    async getCitizenListCateByGender(id) {
+    static async getCitizenListCateByGender(id) {
         const sql = `SELECT COUNT(case when a.answer = 'NAM' then 1 end) as Male, 
                     COUNT(case when a.answer = 'Nữ' then 1 end) as Female 
                     from answer a
@@ -120,7 +120,7 @@ class Citizen {
 
     //Lấy ra số người trong các độ tuổi từ 0-12: child, 12-18: teenager, 18-25: pre adult, 25-40: young adult, 
     //40-50: adult, 50-60: pre old, 60+: old 
-    async getCitizenListCateByAged(id) {
+    static async getCitizenListCateByAged(id) {
         const sql = `select count(case when (select birthday(a.id)) between 0 and 12 THEN 1 end) as child,
                     count(case when (select birthday(c.id)) between 12 and 18 THEN 1 end) as teenager,
                     count(case when (select birthday(c.id)) between 19 and 25 THEN 1 end) as pre_adult,
@@ -142,7 +142,7 @@ class Citizen {
     }
 
     //Lấy ra số người đã tốt nghiệp bậc thpt, đã tốt nghiệp bậc thcs, chưa tốt nghiệp
-    async getCitizenListCateByAcademicLevel(id) {
+    static async getCitizenListCateByAcademicLevel(id) {
         const sql = `select count(case when a.answer < 9 then 1 end) as notGra,
                     count(case when a.answer >= 9 then 1 end) as secondGra,
 		            count(case when a.answer >= 12 then 1 end) as thirdGra
@@ -164,7 +164,7 @@ class Citizen {
     }
 
     //Lấy thông tin của 1 người dân bất kỳ 
-    async getCitizenInfo(citizenid) {
+    static async getCitizenInfo(citizenid) {
         const sql = `SELECT c.id, CONCAT(first_name, ' ', last_name) as fullname, address_code, q.cauhoi, a.answer FROM citizen c
                     JOIN answer a ON a.id_citizen = c.id
                     JOIN quiz q ON q.id = a.quiz_id
