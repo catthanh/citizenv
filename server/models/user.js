@@ -5,15 +5,13 @@ class User {
         this.password = password;
         this.role = role;
         this.address_code = address_code;
-        this.id = id;
     }
     static create(user = {}) {
         return new this(
             user.username,
             user.password,
             user.role,
-            user.address_code,
-            user.id
+            user.address_code
         );
     }
 
