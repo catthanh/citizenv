@@ -69,6 +69,8 @@ class UserA1 extends User {
 
         return false;
     }
+
+    
     // dong khai bao
     // theo doi tien do
     checkProgress() {}

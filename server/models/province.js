@@ -41,6 +41,5 @@ class Province {
             return error;
         }
     }
-    //
 }
 module.exports = Province;

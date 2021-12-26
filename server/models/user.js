@@ -143,11 +143,43 @@ class User {
     // lay this.addressCode.length slice so sanh neu hai chuoi trung nhau thi co quyen
     // 11; 1122->11
     checkIfBelongTo(addressCode) {
-        if (this.addressCode.length >= addressCode.length)
+
+        if (this.address_code.length >= addressCode.length)
             return false;
-        else if (addressCode.slice(0, this.addressCode.length) !== this.addressCode)
+        else if (addressCode.slice(0, this.address_code.length) !== this.address_code) {
+            console.log(addressCode.slice(0, this.address_code.length))
             return false
+        }
         return true;
+    }
+
+    //post
+
+    async editUser(id, username, password, role, address_code) {
+        const qry = `UPDATE users SET address_code=?,role=?,username=?,password=? WHERE id=?`;
+        try {
+            const [rows, fields] = await pool.query(qry, [
+                address_code,
+                role,
+                username,
+                password,
+                id,
+            ]);
+            return true;
+        } catch (error) {
+            return false;
+        }
+    }
+
+    async delUser(id) {
+        const qry = `DELETE FROM users WHERE id=?`;
+        try {
+            const [rows, fields] = await pool.query(qry, [
+                id,
+            ]);
+            if(rows.length == 1) return true;
+        } catch (error) {}
+        return false;
     }
 }
 
