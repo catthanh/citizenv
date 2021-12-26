@@ -50,7 +50,7 @@ PUT http://localhost:5000/api/createaccount HTTP/1.1
 content-type: application/json
 
 {
-    "username": "Quận Ba Đình",
+    "username": "b",
     "password": "123456",
     "role": "A2",
     "addressCode": ""
@@ -100,6 +100,49 @@ POST api/reportcompletion HTTP/1.1
 content-type: application/json
 {
     "addressCode": "",
+}
+###
+POST http://localhost:5000/api/addData HTTP/1.1
+content-type: application/json
+
+{
+    "id_citizen": "1",
+    "quiz_id": "1",
+    "answer": "Nguyen Thi B"
+}
+###
+PUT http://localhost:5000/api/editdata HTTP/1.1
+content-type: application/json
+
+{
+    "id_citizen": "2",
+    "quiz_id": "1",
+    "answer": "A"
+}
+###
+DELETE http://localhost:5000/api/deldata HTTP/1.1
+content-type: application/json
+
+{
+    "id": "5"
+}
+###
+PUT http://localhost:5000/api/edituser HTTP/1.1
+content-type: application/json
+
+{
+    "id": "3",
+    "username": "Phường Phúc Xá",
+    "password": "1213",
+    "role": "A3",
+    "address_code": "1212"
+}
+###
+DELETE http://localhost:5000/api/deluser HTTP/1.1
+content-type: application/json
+
+{
+    "id": "2"
 }
 
 

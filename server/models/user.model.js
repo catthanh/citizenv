@@ -5,15 +5,13 @@ class User {
         this.password = password;
         this.role = role;
         this.address_code = address_code;
-        this.id = id;
     }
     static create(user = {}) {
         return new this(
             user.username,
             user.password,
             user.role,
-            user.address_code,
-            user.id
+            user.address_code
         );
     }
 
@@ -150,6 +148,33 @@ class User {
         )
             return false;
         return true;
+    }
+
+    //post
+
+    async editUser(id, username, password, role, address_code) {
+        const qry = `UPDATE users SET address_code=?,role=?,username=?,password=? WHERE id=?`;
+        try {
+            const [rows, fields] = await pool.query(qry, [
+                address_code,
+                role,
+                username,
+                password,
+                id,
+            ]);
+            return true;
+        } catch (error) {
+            return false;
+        }
+    }
+
+    async delUser(id) {
+        const qry = `DELETE FROM users WHERE id=?`;
+        try {
+            const [rows, fields] = await pool.query(qry, [id]);
+            if (rows.length == 1) return true;
+        } catch (error) {}
+        return false;
     }
 }
 
