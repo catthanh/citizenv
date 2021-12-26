@@ -8,12 +8,16 @@ const Citizen = require("../models/citizen");
 router.post("/api/login", async (req, res) => {
     const { username, password } = req.body;
 
-    let user = new User(username, password);
-    if (!(await user.checkIfExists()))
+    let user = await User.findOne({ username });
+    console.log(user);
+    if (!user)
         res.json({ status: "error", message: "tài khoản không tồn tại" });
-    else if (!(await user.checkIfPasswordCorrect()))
+    else if (user.password != password)
         res.json({ status: "error", message: "sai mật khẩu" });
-    else res.json({ status: "ok", message: "đăng nhập thành công" });
+    else {
+        token = await jwt.sign(user.id, process.env.JWT_SECRET);
+        res.json({ status: "ok", message: "đăng nhập thành công", token });
+    }
 });
 
 router.put("/api/createprovince", async (req, res) => {
@@ -121,18 +125,24 @@ router.delete("/api/deldata", async (req, res) => {
 });
 
 //data user
+// router.put("/api/edituser", async (req, res) => {
+//     const { id, username, password, role, address_code } = req.body;
+//     try {
+//         const user = await User.findOne({ id: id });
+//         console.log(user);
+//         if(user.editUser(id, username, password, role, address_code)) {
+//             console.log(user.editUser(id, username, password, role, address_code));
+//             res.json({ status: "ok", message: "Sửa tài khoản thành công" })
+//         }
+//     } catch(error) {
+//         res.json({ status: "error", message: "Sửa tài khoản không thành công" });
+//     }
+// });
+
 router.put("/api/edituser", async (req, res) => {
     const { id, username, password, role, address_code } = req.body;
-    try {
-        const user = await User.findOne({ id: id });
-        console.log(user);
-        if(user.editUser(id, username, password, role, address_code)) {
-            console.log(user.editUser(id, username, password, role, address_code));
-            res.json({ status: "ok", message: "Sửa tài khoản thành công" })
-        }
-    } catch(error) {
-        res.json({ status: "error", message: "Sửa tài khoản không thành công" });
-    }
+    const a1 = new UserA1(username, password);
+    res.json(await a1.editAcc(id, username, password, role, address_code));
 });
 
 router.delete("/api/deluser", async (req, res) => {

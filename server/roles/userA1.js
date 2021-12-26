@@ -70,6 +70,29 @@ class UserA1 extends User {
         return false;
     }
 
+    async editAcc(id, username, password, role, address_code) {
+
+        let user = new User(username, password, role, address_code);
+        let province = new Province(address_code, username);
+        if (await user.checkIfExists()) {
+            console.log("error create");
+            return {
+                status: "error",
+                message: "tên tài khoản đã tồn tại",
+            };
+        } else if (!(await province.checkIfNameExists())) {
+            return {
+                status: "error",
+                message: "tên tài khoản phải trùng tên tỉnh/thành phố",
+            };
+        } else {
+            const editUser = user.editUser(id, username, password, role, address_code);
+            return {
+                status: "ok",
+                message: "Sửa tài khoản thành công",
+            };
+        }
+    }
     
     // dong khai bao
     // theo doi tien do

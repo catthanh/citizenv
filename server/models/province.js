@@ -1,5 +1,5 @@
 const pool = require("../config/pool");
-class Province {
+class Area {
     constructor(addressCode, name) {
         this.addressCode = addressCode;
         this.name = name;
@@ -42,4 +42,4 @@ class Province {
         }
     }
 }
-module.exports = Province;
+module.exports = Area;
