@@ -65,6 +65,39 @@ router.get("/api/citizenlistfromprovince", async (req, res) => {
     }
 });
 
+router.get("/api/citizenlistfromcity", async (req, res) => {
+    const { userid, province, city } = req.body;
+    const user = await User.findOne({ id: userid });
+    if (!user || !user.role === "A1")
+        res.json({ status: "error", message: "không được phép" });
+    else if(user && user.role == "A1") {
+        const a1 = new UserA1(user.username, user.password);
+        res.json(await a1.citizenListFromCity(province, city));
+    }
+});
+
+router.get("/api/citizenlistfromward", async (req, res) => {
+    const { userid, province, city, ward } = req.body;
+    const user = await User.findOne({ id: userid });
+    if (!user || !user.role === "A1")
+        res.json({ status: "error", message: "không được phép" });
+    else if(user && user.role == "A1") {
+        const a1 = new UserA1(user.username, user.password);
+        res.json(await a1.citizenListFromWard(province, city, ward));
+    }
+});
+
+router.get("/api/citizenlistfromarea", async (req, res) => {
+    const { userid, province, city, ward ,area } = req.body;
+    const user = await User.findOne({ id: userid });
+    if (!user || !user.role === "A1")
+        res.json({ status: "error", message: "không được phép" });
+    else if(user && user.role == "A1") {
+        const a1 = new UserA1(user.username, user.password);
+        res.json(await a1.citizenListFromCity(province, city, ward ,area));
+    }
+});
+
 router.get("/api/citizeninfo", async (req, res) => {
     const { userid, citizen_id } = req.body;
     const user = await User.findOne({ id: userid });

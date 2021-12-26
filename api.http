@@ -60,8 +60,18 @@ GET http://localhost:5000/api/citizeninfo HTTP/1.1
 content-type: application/json
 
 {
-    "userid": 2,
+    "userid": "2",
     "citizen_id": "1"
+
+}
+###
+GET http://localhost:5000/api/citizenlistfromcity HTTP/1.1
+content-type: application/json
+
+{
+    "userid": "2",
+    "province": "37",
+    "city": "01"
 
 }
 ###

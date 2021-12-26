@@ -41,11 +41,11 @@ class Citizen {
     static async getCitizenListFromCity(provinceCode, districtCode) {
         const sql = `SELECT * FROM citizen c
                     JOIN answer a ON c.id = a.id_citizen
-                    WHERE addresss_code LIKE ?`;
+                    WHERE c.address_code LIKE ?`;
         try {
             provinceCode = provinceCode.toString();
             districtCode = districtCode.toString();
-            districtID = provinceCode + districtCode;
+            var districtID = provinceCode + districtCode;
             const [rows, fields] = await pool.query(sql, [districtID + '%']);
             //console.log(rows);
             if (rows.length > 0) {
@@ -61,7 +61,7 @@ class Citizen {
     static async getCitizenListFromWard(provinceCode, districtCode, wardCode) {
         const sql = `SELECT * FROM citizen c
                     JOIN answer a ON c.id = a.id_citizen
-                    WHERE addresss_code LIKE ?`;
+                    WHERE address_code LIKE ?`;
         try {
             provinceCode = provinceCode.toString();
             districtCode = districtCode.toString();
@@ -82,7 +82,7 @@ class Citizen {
     static async getCitizenListFromArea(provinceCode, districtCode, wardCode, areaCode) {
         const sql = `SELECT * FROM citizen c
                     JOIN answer a ON c.id = a.id_citizen
-                    WHERE addresss_code LIKE ?`;
+                    WHERE address_code LIKE ?`;
         try {
             provinceCode = provinceCode.toString();
             districtCode = districtCode.toString();
@@ -173,9 +173,9 @@ class Citizen {
             const [rows, fields] = await pool.query(sql, [citizenid]);
             //console.log(citizenid);
             console.log(rows);
-            //if(rows.length > 0) {
+            if(rows.length > 0) {
                 return rows;
-            //}
+            }
         } catch (error) {
             console.log(error);
         }
@@ -186,3 +186,19 @@ class Citizen {
 }
 
 module.exports = Citizen;
+
+// Thêm function này vào database
+// use test;
+
+// delimiter //
+
+// create function birthday(citizen INT) 
+// returns INT 
+// reads sql data
+// BEGIN 
+// 	declare tmp INT;
+//     select floor(datediff(curdate(), (select answer from test.answer WHERE quiz_id = 2 and id_citizen = citizen)) / 365.242199) into tmp;
+//     return tmp;
+// END //
+
+// delimiter ;
