@@ -18,15 +18,14 @@ class User {
     }
 
     //Tạo user mới
-    async createNewUser() {
+    static async createUser(addressCode, role, username, password) {
         const qry = `INSERT INTO users(address_code, role, username, password) VALUES(?,?,?,?)`;
         try {
-            console.log('creat user');
             const [rows, fields] = await pool.query(qry, [
-                this.addressCode,
-                this.role,
-                this.username,
-                this.password,
+                addressCode,
+                role,
+                username,
+                password,
             ]);
             return rows;
         } catch (error) {
@@ -110,7 +109,7 @@ class User {
         try {
             const [rows, fields] = await pool.query(qry);
             console.log(rows.length);
-            if (rows.length == 1) {
+            if (rows.length >= 1) {
                 return this.create(rows[0]);
             }
         } catch (error) {
@@ -145,10 +144,11 @@ class User {
     // lay this.addressCode.length slice so sanh neu hai chuoi trung nhau thi co quyen
     // 11; 1122->11
     checkIfBelongTo(addressCode) {
-        if (this.addressCode.length >= addressCode.length)
+        if (this.addressCode.length >= addressCode.length) return false;
+        else if (
+            addressCode.slice(0, this.addressCode.length) !== this.addressCode
+        )
             return false;
-        else if (addressCode.slice(0, this.addressCode.length) !== this.addressCode)
-            return false
         return true;
     }
 }

@@ -2,7 +2,7 @@ import React from "react";
 import hero from "../assets/hero.jpg";
 import { Link } from "react-router-dom";
 
-const Home = () => {
+const Landing = () => {
     return (
         <div>
             <header className="relative  overflow-hidden min-h-screen">
@@ -78,4 +78,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default Landing;

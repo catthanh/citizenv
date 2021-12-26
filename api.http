@@ -4,17 +4,46 @@ POST http://localhost:5000/api/login HTTP/1.1
 content-type: application/json
 
 {
-    "username": "thanh1",
-    "password": "1312"
+    "username": "11",
+    "password": "1213"
 }
 ###
-PUT http://localhost:5000/api/createprovince HTTP/1.1
+PUT http://localhost:5000/api/createarea HTTP/1.1
 content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQwNDgxMzgxfQ.2NLJ0dq_1JjJqpymJWTxHHGzOl5tucuzxnF-itUi1jI
 
 {
-    "userid": "2",
+    
+    "addressCode": "1198",
     "name": "sample",
-    "addressCode": "23"
+    "password": "1213"
+}
+###
+POST http://localhost:5000/api/opendeclaration HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQwNDgxMzgxfQ.2NLJ0dq_1JjJqpymJWTxHHGzOl5tucuzxnF-itUi1jI
+
+{
+    
+    "addressCode": "1123",
+    "time_begin": "2022-01-01",
+    "time_end": "2022-03-04"
+}
+###
+GET http://localhost:5000/api/getchildarea HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQwNDgxMzgxfQ.2NLJ0dq_1JjJqpymJWTxHHGzOl5tucuzxnF-itUi1jI
+
+{
+    "addressCode": "79"
+}
+###
+GET http://localhost:5000/api/getareadata HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQwNDgxMzgxfQ.2NLJ0dq_1JjJqpymJWTxHHGzOl5tucuzxnF-itUi1jI
+
+{
+    "addressCode": ""
 }
 ###
 PUT http://localhost:5000/api/createaccount HTTP/1.1
@@ -29,10 +58,12 @@ content-type: application/json
 ###
 POST http://localhost:5000/api/opendeclaration HTTP/1.1
 content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQwNDgxMzgxfQ.2NLJ0dq_1JjJqpymJWTxHHGzOl5tucuzxnF-itUi1jI
 
 {
-    "addressCode": "0",
-    "openDeclaration": "false"
+    "addressCode": "1123",
+    "time_begin": "2022-01-01",
+    "time_end": "2022-03-04"
 }
 ###
 POST api/checkprogress HTTP/1.1
@@ -70,5 +101,6 @@ content-type: application/json
 {
     "addressCode": "",
 }
+
 
 // phan tich so lieu 

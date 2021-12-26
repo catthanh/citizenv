@@ -1,7 +1,34 @@
 import { LockClosedIcon, UserGroupIcon } from "@heroicons/react/solid";
 import fingerprintimage from "../assets/fingerprintimage.svg";
+import { useForm } from "react-hook-form";
+import { useAuth } from "../contexts/AuthContext";
+import { useState } from "react";
+import { useNavigate, useLocation, Navigate } from "react-router-dom";
 
 export default function Login() {
+    const [message, setMessage] = useState(null);
+    const [status, setStatus] = useState(null);
+    let navigate = useNavigate();
+    let location = useLocation();
+    const auth = useAuth();
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm();
+
+    let from = location.state?.from?.pathname || "/";
+
+    const onSubmit = async (data) => {
+        const result = await auth.login(data.username, data.password);
+        setStatus(result.status);
+        setMessage(result.message);
+        if (result.status === "ok") {
+            navigate(from, { replace: true });
+        }
+    };
+
     return (
         <>
             <div className="flex justify-center py-10 lg:py-24 sm:px-6 lg:px-8">
@@ -25,8 +52,7 @@ export default function Login() {
                         </div>
                         <form
                             className="mt-8 space-y-6"
-                            action="#"
-                            method="POST"
+                            onSubmit={handleSubmit(onSubmit)}
                         >
                             <div className="">
                                 <div className="">
@@ -41,10 +67,17 @@ export default function Login() {
                                         name="username"
                                         type="text"
                                         autoComplete="username"
-                                        required
                                         className="my-4 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                         placeholder=""
+                                        {...register("username", {
+                                            required: true,
+                                        })}
                                     />
+                                    {errors.username && (
+                                        <div className="text-red-600 pb-2">
+                                            Bạn phải điền tên tài khoản
+                                        </div>
+                                    )}
                                 </div>
                                 <div>
                                     <label
@@ -58,14 +91,21 @@ export default function Login() {
                                         name="password"
                                         type="password"
                                         autoComplete="current-password"
-                                        required
                                         className="my-4 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                         placeholder=""
+                                        {...register("password", {
+                                            required: true,
+                                        })}
                                     />
+                                    {errors.password && (
+                                        <div className="text-red-600 pb-2">
+                                            Bạn phải điền mật khẩu
+                                        </div>
+                                    )}
                                 </div>
                             </div>
 
-                            <div className="flex items-center justify-between">
+                            {/* <div className="flex items-center justify-between">
                                 <div className="flex items-center">
                                     <input
                                         id="remember-me"
@@ -83,13 +123,13 @@ export default function Login() {
 
                                 <div className="text-sm">
                                     <a
-                                        href="#"
+                                        href="#1"
                                         className="font-medium text-indigo-600 hover:text-indigo-500"
                                     >
                                         Quên mật khẩu?
                                     </a>
                                 </div>
-                            </div>
+                            </div> */}
 
                             <div>
                                 <button
@@ -104,6 +144,17 @@ export default function Login() {
                                     </span>
                                     Đăng nhập
                                 </button>
+                                {
+                                    <div
+                                        className={`${
+                                            status === "error"
+                                                ? "text-red-600"
+                                                : "text-green-600"
+                                        } py-2 flex justify-center`}
+                                    >
+                                        {message}
+                                    </div>
+                                }
                             </div>
                         </form>
                     </div>

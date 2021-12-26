@@ -5,12 +5,15 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { GlobalStyles } from "twin.macro";
+import { AuthProvider } from "./contexts/AuthContext";
 ReactDOM.render(
     <React.StrictMode>
-        <BrowserRouter>
-            <GlobalStyles />
-            <App />
-        </BrowserRouter>
+        <AuthProvider>
+            <BrowserRouter>
+                <GlobalStyles />
+                <App />
+            </BrowserRouter>
+        </AuthProvider>
     </React.StrictMode>,
     document.getElementById("root")
 );
