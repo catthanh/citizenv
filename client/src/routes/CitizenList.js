@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { createChild } from "../helpers/role";
+import { useForm } from "react-hook-form";
 
 const CitizenList = () => {
     const auth = useAuth();
     //const child = auth.child;
     const [child, setChild] = useState([]);
     const [citizens, setCitizens] = useState([]);
+    const [message, setMessage] = useState(null);
+    const [status, setStatus] = useState(null);
+    const { register, handleSubmit } = useForm();
     useEffect(() => {
         async function fetchData() {
             setChild(
@@ -15,11 +19,87 @@ const CitizenList = () => {
         }
         fetchData();
     }, [auth]);
+    const onSubmit = async (data) => {
+        console.log(data);
+        const response = await auth.getCitizenList(data);
+        setCitizens(response.citizen);
+        console.log(response);
+        setMessage(response.message);
+        setStatus(response.status);
+    };
     return (
         <div className="container mx-auto lg:col-span-full">
             <div className="py-8">
                 <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 overflow-x-auto">
                     <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
+                        <form onSubmit={handleSubmit(onSubmit)}>
+                            <div className="flex flex-col mb-2">
+                                <div className=" relative ">
+                                    <label className="font-medium text-gray-700">
+                                        Chọn Tỉnh/ thành phố
+                                    </label>
+                                    <select
+                                        id="openaddresscode"
+                                        className="mx-1 rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                                        {...register("addressCode", {
+                                            required: true,
+                                            validate: {},
+                                        })}
+                                    >
+                                        {(auth.addressCode + "").length == 0 ? (
+                                            child.map((childArea) => (
+                                                <option
+                                                    key={childArea.addressCode}
+                                                    value={
+                                                        childArea.addressCode
+                                                    }
+                                                >
+                                                    {childArea.name}
+                                                </option>
+                                            ))
+                                        ) : (
+                                            <option
+                                                key={auth.addressCode}
+                                                value={auth.addressCode}
+                                            >
+                                                {auth.name}
+                                            </option>
+                                        )}
+                                    </select>
+                                </div>
+                                <div className=" relative ">
+                                    <label className="font-medium text-gray-700">
+                                        Chọn {` ${createChild[auth.role]}:`}
+                                    </label>
+                                    <select
+                                        id="openaddresscode"
+                                        className="mx-1 rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                                        {...register("addressCode", {
+                                            required: true,
+                                            validate: {},
+                                        })}
+                                    >
+                                        {child.map((childArea) => (
+                                            <option
+                                                key={childArea.addressCode}
+                                                value={childArea.addressCode}
+                                            >
+                                                {childArea.name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div className="flex w-full my-4">
+                                <button
+                                    type="submit"
+                                    className="py-2 px-4  bg-purple-600 hover:bg-purple-700 focus:ring-purple-500 focus:ring-offset-purple-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
+                                >
+                                    Xem danh sách dân số
+                                </button>
+                            </div>
+                        </form>
                         <table className="min-w-full leading-normal">
                             <thead>
                                 <tr>
