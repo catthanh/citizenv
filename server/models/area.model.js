@@ -124,7 +124,7 @@ class Area {
                 for (let v2 of v.child) {
                     for (let v3 of v2.child) {
                         if (v3)
-                            v3.child = await Area.getChildList(v3.addressCodeP);
+                            v3.child = await Area.getChildList(v3.addressCode);
                     }
                 }
             }
