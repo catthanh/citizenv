@@ -7,6 +7,7 @@ const auth = require("../middleware/auth");
 const Area = require("../models/area.model");
 const UserController = require("../controllers/user.controller");
 const AreaController = require("../controllers/area.controller");
+const CitizenController = require("../controllers/citizen.controller");
 const permission = require("../middleware/permission");
 
 router.post("/api/login", UserController.login);
