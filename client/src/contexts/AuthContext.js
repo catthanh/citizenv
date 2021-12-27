@@ -90,7 +90,20 @@ const AuthProvider = ({ children }) => {
         });
         return response.json();
     };
+    const getCitizenList = async (data) => {
+        const response = await fetch("/api/citizenlist", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + localStorage.getItem("jwt"),
+            },
+            credentials: "include",
+            body: JSON.stringify(data),
+        });
+        return response.json();
+    };
     const authContextValue = {
+        getCitizenList,
         getChildData,
         openDeclaration,
         createArea,
