@@ -109,31 +109,39 @@ exports.getCitizenInfo = async (req, res) => {
     }
 };
 
-exports.inputData = async (req, res) => {
-    const {id, ten, ngaysinh, gioitinh, CCCD, quequqn, dcthuongtru, dctamtru, tongiao, trinhdovh, nghe} = req.body;
-    if (await Citizen.findIdCitizen(id)) {
-        const answer1 = new Citizen(id, "1", ten);
-        const answer2 = new Citizen(id, "2", ngaysinh);
-        const answer3 = new Citizen(id, "3", gioitinh);
-        const answer4 = new Citizen(id, "4", CCCD);
-        const answer5 = new Citizen(id, "5", quequqn);
-        const answer6 = new Citizen(id, "6", dcthuongtru);
-        const answer7 = new Citizen(id, "7", dctamtru);
-        const answer8 = new Citizen(id, "8", tongiao);
-        const answer9 = new Citizen(id, "9", trinhdovh);
-        const answer10 = new Citizen(id, "10", nghe);
+// exports.inputData = async (req, res) => {
+//     const {id, ten, ngaysinh, gioitinh, CCCD, quequqn, dcthuongtru, dctamtru, tongiao, trinhdovh, nghe} = req.body;
+//     if (await Citizen.findIdCitizen(id)) {
+//         const answer1 = new Citizen(id, "1", ten);
+//         const answer2 = new Citizen(id, "2", ngaysinh);
+//         const answer3 = new Citizen(id, "3", gioitinh);
+//         const answer4 = new Citizen(id, "4", CCCD);
+//         const answer5 = new Citizen(id, "5", quequqn);
+//         const answer6 = new Citizen(id, "6", dcthuongtru);
+//         const answer7 = new Citizen(id, "7", dctamtru);
+//         const answer8 = new Citizen(id, "8", tongiao);
+//         const answer9 = new Citizen(id, "9", trinhdovh);
+//         const answer10 = new Citizen(id, "10", nghe);
 
-        // if (answer1.checkDuplicate() && answer2.checkDuplicate() && answer3.checkDuplicate() && 
-        //     answer4.checkDuplicate() && answer5.checkDuplicate() && answer6.checkDuplicate() && 
-        //     answer7.checkDuplicate() && answer8.checkDuplicate() && answer9.checkDuplicate() && answer10.checkDuplicate()){
-        //     res.json({status: "error", message: "Trùng câu hỏi"});
-        // } else 
-        if (answer1.inputData() && answer2.inputData() && answer3.inputData() && answer4.inputData() && 
-            answer5.inputData() && answer6.inputData() && answer7.inputData() && answer8.inputData() && 
-            answer9.inputData() && answer10.inputData()) {
-                res.json({status: "ok", message: "Nhập dữ liệu thành công"});
-        }
-        else res.json({status: "error", message: "Nhập không dữ liệu thành công"});
-    } else res.json({status: "error", message: "Không tìm thấy citizen"});
+//         // if (answer1.checkDuplicate() && answer2.checkDuplicate() && answer3.checkDuplicate() && 
+//         //     answer4.checkDuplicate() && answer5.checkDuplicate() && answer6.checkDuplicate() && 
+//         //     answer7.checkDuplicate() && answer8.checkDuplicate() && answer9.checkDuplicate() && answer10.checkDuplicate()){
+//         //     res.json({status: "error", message: "Trùng câu hỏi"});
+//         // } else 
+//         if (answer1.inputData() && answer2.inputData() && answer3.inputData() && answer4.inputData() && 
+//             answer5.inputData() && answer6.inputData() && answer7.inputData() && answer8.inputData() && 
+//             answer9.inputData() && answer10.inputData()) {
+//                 res.json({status: "ok", message: "Nhập dữ liệu thành công"});
+//         }
+//         else res.json({status: "error", message: "Nhập không dữ liệu thành công"});
+//     } else res.json({status: "error", message: "Không tìm thấy citizen"});
     
+// }
+
+exports.inputData = async (req, res) => {
+    const {ten, ngaysinh, gioitinh, CCCD, quequan, dcthuongtru, dctamtru, tongiao, trinhdovh, nghe} = req.body;
+    const citizenv = await Citizen.inputData(ten, ngaysinh, gioitinh, CCCD, quequan, dcthuongtru, dctamtru, tongiao, trinhdovh, nghe);
+    if (citizenv != null)
+        res.json({status: "ok", message: "Nhập dữ liệu thành công"});
+    else res.json({status: "error", message: "Nhập dữ liệu không thành công"});
 }

@@ -185,12 +185,11 @@ content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQwNDgxMzgxfQ.2NLJ0dq_1JjJqpymJWTxHHGzOl5tucuzxnF-itUi1jI
 
 {
-    "id": "22",
     "ten": "Đào Minh Tân",
     "ngaysinh": "2001-10-25",
     "gioitinh": "Nam",
     "CCCD": "038201000000",
-    "quequqn": "Số 12, Phố An Xá, Quận Ba Đình, Hà Nội",
+    "quequan": "Số 12, Phố An Xá, Quận Ba Đình, Hà Nội",
     "dcthuongtru": "Số 12, Phố An Xá, Quận Ba Đình, Hà Nội",
     "dctamtru": "",
     "tongiao": "Không",

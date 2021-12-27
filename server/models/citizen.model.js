@@ -1,54 +1,54 @@
 const pool = require("../config/pool");
 class Citizen {
-    constructor(id_citizen, quiz_id, answer) {
-        this.id_citizen = id_citizen;
-        this.quiz_id = quiz_id;
-        this.answer = answer;
-    }
+    // constructor(id_citizen, quiz_id, answer) {
+    //     this.id_citizen = id_citizen;
+    //     this.quiz_id = quiz_id;
+    //     this.answer = answer;
+    // }
 
-    static create(citizen = {}) {
-        return new this(
-            citizen.id_citizen,
-            citizen.quiz_id,
-            citizen.answer
-        );
-    }
+    // static create(citizen = {}) {
+    //     return new this(
+    //         citizen.id_citizen,
+    //         citizen.quiz_id,
+    //         citizen.answer
+    //     );
+    // }
 
-    static async findOne(citizen = {}) {
-        //console.log(user);
-        let qry = null;
-        if (citizen.id)
-            qry = `SELECT * FROM answer where id = ${citizen.id}`;
-        if (citizen.id_citizen) 
-            qry = `SELECT * FROM answer where id_citizen = ${citizen.id_citizen}`;
-        if (citizen.quiz_id)
-            qry = `SELECT * FROM answer where address_code = ${citizen.quiz_id}`;
-        try {
-            const [rows, fields] = await pool.query(qry);
-            if (rows.length == 1) {
-                return this.create(rows[0]);
-            }
-        } catch (error) {
-            console.log(error);
-        }
-        return null;
-    }
+    // static async findOne(citizen = {}) {
+    //     //console.log(user);
+    //     let qry = null;
+    //     if (citizen.id)
+    //         qry = `SELECT * FROM answer where id = ${citizen.id}`;
+    //     if (citizen.id_citizen) 
+    //         qry = `SELECT * FROM answer where id_citizen = ${citizen.id_citizen}`;
+    //     if (citizen.quiz_id)
+    //         qry = `SELECT * FROM answer where address_code = ${citizen.quiz_id}`;
+    //     try {
+    //         const [rows, fields] = await pool.query(qry);
+    //         if (rows.length == 1) {
+    //             return this.create(rows[0]);
+    //         }
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    //     return null;
+    // }
 
     // Check {id_citizen, quiz_id} trùng nhau
-    async checkDuplicate() {
-        const qry = "SELECT id_citizen, quiz_id FROM answer where id_citizen=? and quiz_id=?";
-        try {
-            const [rows, fields] = await pool.execute(qry, [
-                this.id_citizen,
-                this.quiz_id,
-            ]);
-            if (rows.length == 1) return true;
-        } catch (error) {
-            console.log(error);
-        }
+    // async checkDuplicate() {
+    //     const qry = "SELECT id_citizen, quiz_id FROM answer where id_citizen=? and quiz_id=?";
+    //     try {
+    //         const [rows, fields] = await pool.execute(qry, [
+    //             this.id_citizen,
+    //             this.quiz_id,
+    //         ]);
+    //         if (rows.length == 1) return true;
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
 
-        return false;
-    }
+    //     return false;
+    // }
 
     static async findIdCitizen(id) {
         const qry = `SELECT * FROM citizen where id = ${id}`;
@@ -65,13 +65,22 @@ class Citizen {
     }
 
     // nhập liệu
-    async inputData() {
-        const qry = `INSERT INTO answer(id_citizen, quiz_id, answer) VALUES(?,?,?)`;
+    static async inputData(fullname, dateofbirth, gender, CMND, countryside,
+                    permantlyaddress, tempaddress, religion, academiclevel, job) {
+        const qry = `INSERT INTO citizen(fullname, dateofbirth, gender, CMND, countryside, permantlyaddress, 
+                     tempaddress, religion, academiclevel, job) VALUES(?,?,?,?,?,?,?,?,?,?)`;
         try {
             const [rows, fields] = await pool.query(qry, [
-                this.id_citizen,
-                this.quiz_id,
-                this.answer,
+                fullname,
+                dateofbirth,
+                gender,
+                CMND,
+                countryside,
+                permantlyaddress,
+                tempaddress,
+                religion,
+                academiclevel,
+                job,
             ]);
             return rows;
         } catch (error) {
@@ -81,13 +90,23 @@ class Citizen {
         return null;
     }
 
-    async editData(answer) {
-        const qry = `UPDATE answer SET answer=? WHERE id_citizen=? and quiz_id=?`;
+    static async editData(id, fullname, dateofbirth, gender, CMND, countryside,
+        permantlyaddress, tempaddress, religion, academiclevel, job) {
+        const qry = `UPDATE citizen SET fullname=?, dateofbirth=?, gender=?, CMND=?, countryside=?,
+                     permantlyaddress=?, tempaddress=?, religion=?, academiclevel=?, job=? WHERE id=?`;
         try {
             const [rows, fields] = await pool.query(qry, [
-                answer,
-                this.id_citizen,
-                this.quiz_id,
+                fullname, 
+                dateofbirth, 
+                gender, 
+                CMND, 
+                countryside,
+                permantlyaddress, 
+                tempaddress, 
+                religion, 
+                academiclevel, 
+                job,
+                id,
             ]);
             return true;
         } catch (error) {
@@ -95,8 +114,8 @@ class Citizen {
         }
     }
 
-    async delData(id) {
-        const qry = `DELETE FROM answer WHERE id=?`;
+    static async delData(id) {
+        const qry = `DELETE FROM citizen WHERE id=?`;
         try {
             const [rows, fields] = await pool.query(qry, [
                 id,
