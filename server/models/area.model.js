@@ -130,6 +130,19 @@ class Area {
             }
         return result;
     }
+    static async getDetailArea(addressCode) {
+        const sql = `SELECT address_code, name from area WHERE address_code = substring(?, 1, 2)
+                    OR address_code = substring(?, 1, 4) or address_code = substring(?, 1, 6) OR address_code = substring(?, 1, 8)`;
+        try {
+            const [rows, fields] = pool.query(sql, [addressCode, addressCode, addressCode, addressCode]);
+            if (rows.length > 0) {
+                return rows;
+            }
+        } catch (error) {
+            console.log(error);
+        }
+        return null;
+    }
     //
     async openDeclare(time_begin, time_end) {
         const qry = `update area set time_begin="${time_begin}", time_end="${time_end}" where address_code = "${this.addressCode}"`;
