@@ -27,6 +27,7 @@ router.post("/api/citizennumber", auth, CitizenController.getCitizenNumber);
 router.post("/api/citizennumbercatebygender", auth, CitizenController.getCitizenNumberCateByGender);
 router.post("/api/citizennumbercatebyage", auth, CitizenController.getCitizenNumberCateByAge);
 router.post("/api/citizennumbercatebyacademiclevel", auth, CitizenController.getCitizenNumberCateByAcademicLevel);
+router.put("/api/inputdata", auth, CitizenController.inputData);
 
 
 module.exports = router;

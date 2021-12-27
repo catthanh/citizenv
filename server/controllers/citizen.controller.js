@@ -55,4 +55,25 @@ exports.getCitizenInfo = async (req, res) => {
     } else {
         res.json({status: "error", message: "Lấy dữ liệu người dân không thành công"});
     }
+};
+
+exports.inputData = async (req, res) => {
+    const {id_citizen, ten, ngaysinh, gioitinh, CCCD, quequqn, dcthuongtru, dctamtru, tongiao, trinhdovh, nghe} = req.body;
+    const answer1 = new Citizen(id_citizen, "1", ten);
+    const answer2 = new Citizen(id_citizen, "2", ngaysinh);
+    const answer3 = new Citizen(id_citizen, "3", gioitinh);
+    const answer4 = new Citizen(id_citizen, "4", CCCD);
+    const answer5 = new Citizen(id_citizen, "5", quequqn);
+    const answer6 = new Citizen(id_citizen, "6", dcthuongtru);
+    const answer7 = new Citizen(id_citizen, "7", dctamtru);
+    const answer8 = new Citizen(id_citizen, "8", tongiao);
+    const answer9 = new Citizen(id_citizen, "9", trinhdovh);
+    const answer10 = new Citizen(id_citizen, "10", nghe);
+
+    if (answer1.inputData() && answer2.inputData() && answer3.inputData() && answer4.inputData() && 
+        answer5.inputData() && answer6.inputData() && answer7.inputData() && answer8.inputData() && 
+        answer9.inputData() && answer10.inputData()) {
+            res.json({status: "ok", message: "Nhập dữ liệu thành công"});
+        }
+    else res.json({status: "ok", message: "Nhập không dữ liệu thành công"});
 }
