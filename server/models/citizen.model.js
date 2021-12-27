@@ -50,6 +50,20 @@ class Citizen {
         return false;
     }
 
+    static async findIdCitizen(id) {
+        const qry = `SELECT * FROM citizen where id = ${id}`;
+        try {
+            const [rows, fields] = await pool.query(qry);
+            if (rows.length == 1) {
+                return true;
+            }
+        } catch (error) {
+            console.log(error);
+        }
+
+        return false;
+    }
+
     // nhập liệu
     async inputData() {
         const qry = `INSERT INTO answer(id_citizen, quiz_id, answer) VALUES(?,?,?)`;
