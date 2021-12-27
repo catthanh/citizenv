@@ -13,7 +13,10 @@ exports.getCitizenNumber = async (req, res) => {
     const citizenv = await Citizen.getCitizenListCateByProvince(
         req.body.addressCode
     );
-    res.json(citizenv);
+    if (citizenv == -1) {
+        res.json({ status: "error", message: "lỗi" });
+    }
+    res.json({ citizenv, status: "ok", message: "thành công" });
 };
 
 exports.getCitizenNumberCateByGender = async (req, res) => {
