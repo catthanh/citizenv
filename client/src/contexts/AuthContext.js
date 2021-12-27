@@ -78,7 +78,20 @@ const AuthProvider = ({ children }) => {
         });
         return response.json();
     };
+    const getChildData = async (data) => {
+        const response = await fetch("/api/getareadata", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + localStorage.getItem("jwt"),
+            },
+            credentials: "include",
+            body: JSON.stringify(data),
+        });
+        return response.json();
+    };
     const authContextValue = {
+        getChildData,
         openDeclaration,
         createArea,
         login,

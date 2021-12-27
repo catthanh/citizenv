@@ -4,6 +4,7 @@ import Landing from "./routes/Landing";
 import Layout from "./routes/Layout";
 import { RequireAuth } from "./contexts/AuthContext";
 import Manage from "./routes/Manage";
+import Progress from "./routes/Progress";
 function App() {
     return (
         <>
@@ -19,7 +20,7 @@ function App() {
                 >
                     <Route path="congdan/:id" element={<p>congdan</p>} />
                     <Route path="quanly" element={<Manage />} />
-                    <Route path="tiendo" element={<p>tiendo</p>} />
+                    <Route path="tiendo" element={<Progress />} />
                     <Route path="nhaplieu" element={<p>nhaplieu</p>} />
                 </Route>
             </Routes>

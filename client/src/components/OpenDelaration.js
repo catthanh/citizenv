@@ -6,8 +6,16 @@ const OpenDelaration = () => {
     const [message, setMessage] = useState(null);
     const [status, setStatus] = useState(null);
     const auth = useAuth();
-    const child = auth.child;
-
+    //const child = auth.child;
+    const [child, setChild] = useState([]);
+    useEffect(() => {
+        async function fetchData() {
+            setChild(
+                await auth.getChildData({ addressCode: auth.addressCode })
+            );
+        }
+        fetchData();
+    }, [auth]);
     const {
         register,
         handleSubmit,
@@ -17,8 +25,8 @@ const OpenDelaration = () => {
         console.log(data);
         const response = await auth.openDeclaration(data);
         console.log(response);
-        // setMessage(response.message);
-        // setStatus(response.status);
+        setMessage(response.message);
+        setStatus(response.status);
     };
 
     return (
@@ -40,7 +48,6 @@ const OpenDelaration = () => {
                                 Chọn {` ${createChild[auth.role]}:`}
                             </label>
                             <select
-                                type="text"
                                 id="openaddresscode"
                                 className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                                 {...register("addressCode", {

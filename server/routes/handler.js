@@ -19,6 +19,6 @@ router.post(
     permission,
     UserController.openDeclaration
 );
-router.get("/api/getchildarea", auth, AreaController.getChildArea);
-router.get("/api/getareadata", auth, AreaController.getAreaData);
+router.post("/api/getchildarea", auth, AreaController.getChildArea);
+router.post("/api/getareadata", auth, AreaController.getAreaData);
 module.exports = router;

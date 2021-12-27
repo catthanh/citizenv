@@ -12,8 +12,8 @@ const createChild = {
     A1: "tỉnh",
     A2: "quận/ huyện",
     A3: "phường/ xã",
-    B1: "khối xóm",
-    B2: "tổ dân phố",
+    B1: "khối/ xóm",
+    B2: "thôn/ bản/ tổ dân phố",
 };
 
 const childCodeLength = {
