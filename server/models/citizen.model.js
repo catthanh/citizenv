@@ -101,6 +101,19 @@ class Citizen {
         return null;
     }
 
+    //Lấy ra thông tin số người trong 1 tỉnh
+    static async getCitizenListCateByProvince(id) {
+        const sql = `SELECT COUNT(*) as number FROM citizen WHERE address_code LIKE ?`;
+        try {
+            const [rows, fields] = await pool.query(sql, [id + "%"]);
+            if(rows.length > 0) {
+                return rows;
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     //Lấy ra số người giới tính nam, giới tính nữ
     static async getCitizenListCateByGender(id) {
         const sql = `SELECT COUNT(case when a.answer = 'NAM' then 1 end) as Male, 
