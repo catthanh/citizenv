@@ -5,6 +5,7 @@ import Layout from "./routes/Layout";
 import { RequireAuth } from "./contexts/AuthContext";
 import Manage from "./routes/Manage";
 import Progress from "./routes/Progress";
+import CitizenList from "./routes/CitizenList";
 function App() {
     return (
         <>
@@ -18,6 +19,7 @@ function App() {
                         </RequireAuth>
                     }
                 >
+                    <Route path="danhsach" element={<CitizenList />} />
                     <Route path="congdan/:id" element={<p>congdan</p>} />
                     <Route path="quanly" element={<Manage />} />
                     <Route path="tiendo" element={<Progress />} />
