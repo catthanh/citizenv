@@ -123,7 +123,7 @@ class Citizen {
     //Lấy ra thông tin người dân trên 1 tỉnh
     static async getCitizenListFromProvince(provinceCode) {
         const sql = `SELECT * FROM citizen c
-                    WHERE c.address_code LIKE ?`;
+                    WHERE address_code LIKE ?`;
         try {
             const [rows, fields] = await pool.query(sql, [provinceCode + "%"]);
             console.log(provinceCode);
@@ -155,7 +155,7 @@ class Citizen {
     static async getCitizenListCateByGender(id) {
         const sql = `SELECT COUNT(case when gender = 'NAM' then 1 end) as Male, 
                     COUNT(case when gender = 'Nữ' then 1 end) as Female 
-                    from citizen WHERE c.address_code LIKE ?`;
+                    from citizen WHERE address_code LIKE ?`;
         try {
             const [rows, fields] = await pool.query(sql, [id + "%"]);
             if (rows.length > 0) {
@@ -195,7 +195,7 @@ class Citizen {
                     count(case when academiclevel between 9 and 11 then 1 end) as secondGra,
 		            count(case when academiclevel = 12 then 1 end) as thirdGra
                     from citizen
-                    where c.address_code LIKE ?`;
+                    where address_code LIKE ?`;
         try {
             if (id !== "0") {
                 const [rows, fields] = await pool.query(sql, [id + "%"]);
@@ -217,7 +217,7 @@ class Citizen {
     //Lấy thông tin của 1 người dân bất kỳ
     static async getCitizenInfo(citizenid) {
         const sql = `SELECT * FROM citizen c
-                    WHERE c.id = ?`;
+                    WHERE id = ?`;
         try {
             const [rows, fields] = await pool.query(sql, [citizenid]);
             //console.log(citizenid);
