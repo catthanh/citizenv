@@ -24,20 +24,9 @@ router.post("/api/getchildarea", auth, AreaController.getChildArea);
 router.post("/api/getareadata", auth, AreaController.getAreaData);
 router.post("/api/citizenlist", auth, CitizenController.getCitizenList);
 router.post("/api/citizennumber", auth, CitizenController.getCitizenNumber);
-router.post(
-    "/api/citizenNumberCateByGender",
-    auth,
-    CitizenController.getCitizenNumberCateByGender
-);
-router.post(
-    "/api/citizenNumberCateByAge",
-    auth,
-    CitizenController.getCitizenNumberCateByAge
-);
-router.post(
-    "/api/citizenNumberCateByAcademicLevel",
-    auth,
-    CitizenController.getCitizenNumberCateByAcademicLevel
-);
+router.post("/api/citizennumbercatebygender", auth, CitizenController.getCitizenNumberCateByGender);
+router.post("/api/citizennumbercatebyage", auth, CitizenController.getCitizenNumberCateByAge);
+router.post("/api/citizennumbercatebyacademiclevel", auth, CitizenController.getCitizenNumberCateByAcademicLevel);
+
 
 module.exports = router;
