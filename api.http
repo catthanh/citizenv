@@ -172,17 +172,24 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxN
     "addressCode": "11"
 }
 ###
+POST http://localhost:5000/api/citizennumbercatebyacademiclevel HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQwNDgxMzgxfQ.2NLJ0dq_1JjJqpymJWTxHHGzOl5tucuzxnF-itUi1jI
+
+{
+    "addressCode": "11"
+}
+###
 PUT http://localhost:5000/api/inputdata HTTP/1.1
 content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQwNDgxMzgxfQ.2NLJ0dq_1JjJqpymJWTxHHGzOl5tucuzxnF-itUi1jI
 
 {
-    "id_citizen": "23",
-    "ten": "Nguyễn Đình Hải Anh",
+    "ten": "Đào Minh Tân",
     "ngaysinh": "2001-10-25",
     "gioitinh": "Nam",
     "CCCD": "038201000000",
-    "quequqn": "Số 12, Phố An Xá, Quận Ba Đình, Hà Nội",
+    "quequan": "Số 12, Phố An Xá, Quận Ba Đình, Hà Nội",
     "dcthuongtru": "Số 12, Phố An Xá, Quận Ba Đình, Hà Nội",
     "dctamtru": "",
     "tongiao": "Không",
