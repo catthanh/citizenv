@@ -6,6 +6,7 @@ const CitizenList = () => {
     const auth = useAuth();
     //const child = auth.child;
     const [child, setChild] = useState([]);
+    const [citizens, setCitizens] = useState([]);
     useEffect(() => {
         async function fetchData() {
             setChild(
