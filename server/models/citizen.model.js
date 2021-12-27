@@ -34,6 +34,23 @@ class Citizen {
         return null;
     }
 
+    // Check {id_citizen, quiz_id} trùng nhau
+    async checkDuplicate() {
+        const qry = "SELECT id_citizen, quiz_id FROM answer where id_citizen=? and quiz_id=?";
+        try {
+            const [rows, fields] = await pool.execute(qry, [
+                this.id_citizen,
+                this.quiz_id,
+            ]);
+            if (rows.length == 1) return true;
+        } catch (error) {
+            console.log(error);
+        }
+
+        return false;
+    }
+
+    // nhập liệu
     async inputData() {
         const qry = `INSERT INTO answer(id_citizen, quiz_id, answer) VALUES(?,?,?)`;
         try {
