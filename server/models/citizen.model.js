@@ -19,7 +19,7 @@ class Citizen {
     //     let qry = null;
     //     if (citizen.id)
     //         qry = `SELECT * FROM answer where id = ${citizen.id}`;
-    //     if (citizen.id_citizen) 
+    //     if (citizen.id_citizen)
     //         qry = `SELECT * FROM answer where id_citizen = ${citizen.id_citizen}`;
     //     if (citizen.quiz_id)
     //         qry = `SELECT * FROM answer where address_code = ${citizen.quiz_id}`;
@@ -65,10 +65,21 @@ class Citizen {
     }
 
     // nhập liệu
-    static async inputData(fullname, dateofbirth, gender, CMND, countryside,
-                    permantlyaddress, tempaddress, religion, academiclevel, job) {
+    static async inputData(
+        fullname,
+        dateofbirth,
+        gender,
+        CMND,
+        countryside,
+        permantlyaddress,
+        tempaddress,
+        religion,
+        academiclevel,
+        job,
+        addressCode
+    ) {
         const qry = `INSERT INTO citizen(fullname, dateofbirth, gender, CMND, countryside, permantlyaddress, 
-                     tempaddress, religion, academiclevel, job) VALUES(?,?,?,?,?,?,?,?,?,?)`;
+                     tempaddress, religion, academiclevel, job, address_code) VALUES(?,?,?,?,?,?,?,?,?,?, ?)`;
         try {
             const [rows, fields] = await pool.query(qry, [
                 fullname,
@@ -81,6 +92,7 @@ class Citizen {
                 religion,
                 academiclevel,
                 job,
+                addressCode,
             ]);
             return rows;
         } catch (error) {
@@ -90,21 +102,32 @@ class Citizen {
         return null;
     }
 
-    static async editData(id, fullname, dateofbirth, gender, CMND, countryside,
-        permantlyaddress, tempaddress, religion, academiclevel, job) {
+    static async editData(
+        id,
+        fullname,
+        dateofbirth,
+        gender,
+        CMND,
+        countryside,
+        permantlyaddress,
+        tempaddress,
+        religion,
+        academiclevel,
+        job
+    ) {
         const qry = `UPDATE citizen SET fullname=?, dateofbirth=?, gender=?, CMND=?, countryside=?,
                      permantlyaddress=?, tempaddress=?, religion=?, academiclevel=?, job=? WHERE id=?`;
         try {
             const [rows, fields] = await pool.query(qry, [
-                fullname, 
-                dateofbirth, 
-                gender, 
-                CMND, 
+                fullname,
+                dateofbirth,
+                gender,
+                CMND,
                 countryside,
-                permantlyaddress, 
-                tempaddress, 
-                religion, 
-                academiclevel, 
+                permantlyaddress,
+                tempaddress,
+                religion,
+                academiclevel,
                 job,
                 id,
             ]);
@@ -117,10 +140,8 @@ class Citizen {
     static async delData(id) {
         const qry = `DELETE FROM citizen WHERE id=?`;
         try {
-            const [rows, fields] = await pool.query(qry, [
-                id,
-            ]);
-            if(rows.length == 1) return true;
+            const [rows, fields] = await pool.query(qry, [id]);
+            if (rows.length == 1) return true;
         } catch (error) {}
         return false;
     }
@@ -161,8 +182,8 @@ class Citizen {
         const sql = `SELECT COUNT(*) as number FROM citizen WHERE address_code LIKE ?`;
         try {
             const [rows, fields] = await pool.query(sql, [id + "%"]);
-            if(rows.length > 0) {
-                return rows;
+            if (rows.length > 0) {
+                return rows[0].number;
             }
         } catch (error) {
             console.log(error);
@@ -172,7 +193,7 @@ class Citizen {
 
     //Lấy ra số người giới tính nam, giới tính nữ
     static async getCitizenListCateByGender(id) {
-        const sql = `SELECT COUNT(case when gender = 'NAM' then 1 end) as Male, 
+        const sql = `SELECT COUNT(case when gender = 'Nam' then 1 end) as Male, 
                     COUNT(case when gender = 'Nữ' then 1 end) as Female 
                     from citizen WHERE address_code LIKE ?`;
         try {
@@ -242,8 +263,7 @@ class Citizen {
             //console.log(citizenid);
             console.log(rows);
             if (rows.length > 0) {
-
-                return rows;
+                return rows[0];
             }
         } catch (error) {
             console.log(error);

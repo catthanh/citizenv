@@ -12,7 +12,9 @@ const FillData = () => {
 
     const onSubmit = async (data) => {
         console.log(data);
-        const response = auth.filldata(data);
+        data.addressCode = auth.addressCode;
+        const response = await auth.filldata(data);
+        console.log(response);
         setMessage(response.message);
         setStatus(response.status);
     };
@@ -35,8 +37,8 @@ const FillData = () => {
                                         type="text"
                                         id="fullname"
                                         className="mx-1 rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
-                                        name="email"
-                                        {...register("ten", {
+                                        name="name"
+                                        {...register("fullname", {
                                             required: true,
                                         })}
                                     />
@@ -53,7 +55,7 @@ const FillData = () => {
                                         id="birthday"
                                         className="mx-1 rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                                         name="birthday"
-                                        {...register("ngaysinh", {
+                                        {...register("dateofbirth", {
                                             required: true,
                                         })}
                                     />
@@ -75,7 +77,7 @@ const FillData = () => {
                                                 name="gioitinh"
                                                 id="nam"
                                                 value="Nam"
-                                                {...register("gioitinh", {})}
+                                                {...register("gender", {})}
                                             />
                                             <label
                                                 className="form-check-label inline-block text-gray-800"
@@ -92,7 +94,7 @@ const FillData = () => {
                                                 id="nu"
                                                 defaultChecked
                                                 value="Nữ"
-                                                {...register("gioitinh", {})}
+                                                {...register("gender", {})}
                                             />
                                             <label
                                                 className="form-check-label inline-block text-gray-800"
@@ -116,7 +118,7 @@ const FillData = () => {
                                     id="cmnd"
                                     className="mx-1 mb-2 rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                                     name="CCCD"
-                                    {...register("CCCD", {
+                                    {...register("CMND", {
                                         required: true,
                                     })}
                                 />
@@ -133,7 +135,7 @@ const FillData = () => {
                                     id="quequan"
                                     className="mx-1 mb-2 rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                                     name="quequan"
-                                    {...register("quequan", {
+                                    {...register("countryside", {
                                         required: true,
                                     })}
                                 />
@@ -150,7 +152,7 @@ const FillData = () => {
                                     id="hktt"
                                     className="mx-1 mb-2 rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                                     name="dcthuongtru"
-                                    {...register("dcthuongtru", {
+                                    {...register("permantlyaddress", {
                                         required: true,
                                     })}
                                 />
@@ -167,7 +169,7 @@ const FillData = () => {
                                     id="hktt"
                                     className="mx-1 mb-2 rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                                     name="hktt"
-                                    {...register("dctamtru", {})}
+                                    {...register("tempaddress", {})}
                                 />
                             </div>
                             <div className=" relative ">
@@ -182,7 +184,7 @@ const FillData = () => {
                                     id="tdvh"
                                     className="mx-1 mb-2 rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                                     name="tongiao"
-                                    {...register("tongiao", {
+                                    {...register("religion", {
                                         required: true,
                                     })}
                                 />
@@ -199,7 +201,7 @@ const FillData = () => {
                                     id="tdvh"
                                     className="mx-1 mb-2 rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                                     name="trinhdovh"
-                                    {...register("trinhdovh", {
+                                    {...register("academiclevel", {
                                         required: true,
                                     })}
                                 />
@@ -216,7 +218,7 @@ const FillData = () => {
                                     id="job"
                                     className="mx-1 mb-2 rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                                     name="nghe"
-                                    {...register("nghe", {
+                                    {...register("job", {
                                         required: true,
                                     })}
                                 />

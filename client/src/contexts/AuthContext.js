@@ -115,7 +115,20 @@ const AuthProvider = ({ children }) => {
         return response.json();
     };
     const filldata = async (data) => {
-        const response = await fetch("/api/filldata", {
+        const response = await fetch("/api/inputdata", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + localStorage.getItem("jwt"),
+            },
+            credentials: "include",
+            body: JSON.stringify(data),
+        });
+
+        return response.json();
+    };
+    const getGender = async (data) => {
+        const response = await fetch("/api/citizennumbercatebygender", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -125,6 +138,30 @@ const AuthProvider = ({ children }) => {
             body: JSON.stringify(data),
         });
 
+        return response.json();
+    };
+    const getAge = async (data) => {
+        const response = await fetch("/api/citizennumbercatebyage", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + localStorage.getItem("jwt"),
+            },
+            credentials: "include",
+            body: JSON.stringify(data),
+        });
+        return response.json();
+    };
+    const getAca = async (data) => {
+        const response = await fetch("/api/citizennumbercatebyacademiclevel", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + localStorage.getItem("jwt"),
+            },
+            credentials: "include",
+            body: JSON.stringify(data),
+        });
         return response.json();
     };
     const getCitizenNumber = async (data) => {
@@ -141,6 +178,9 @@ const AuthProvider = ({ children }) => {
         return response.json();
     };
     const authContextValue = {
+        getAca,
+        getAge,
+        getGender,
         getCitizenInfo,
         filldata,
         getCitizenNumber,

@@ -8,17 +8,18 @@ const CitizenInfo = () => {
     const [citizen, setCitizen] = useState(null);
     useEffect(() => {
         async function fetchData() {
-            setCitizen(await auth.getCitizenInfo({ id: params.id }));
+            setCitizen((await auth.getCitizenInfo({ id: params.id })).citizenv);
         }
         fetchData();
     }, [auth, params]);
+    console.log(citizen);
     return (
         <div>
             <p class="text-gray-800  text-xl font-medium mb-4">
                 {citizen && citizen.fullname}
             </p>
             <p class="text-gray-700  text-md mt-4">
-                CMND: {citizen && citizen.cmnd}
+                CMND: {citizen && citizen.CMND}
             </p>
             <p class="text-gray-700  text-md mt-4">
                 Ngày sinh: {citizen && citizen.dateofbirth}
@@ -30,10 +31,10 @@ const CitizenInfo = () => {
                 Quê quán: {citizen && citizen.countryside}
             </p>
             <p class="text-gray-700  text-md mt-4">
-                Hộ khẩu thường trú: {citizen && citizen.tempararyaddress}
+                Hộ khẩu thường trú: {citizen && citizen.permantlyaddress}
             </p>
             <p class="text-gray-700  text-md mt-4">
-                Hộ khẩu tạm trú: {citizen && citizen.birthday}
+                Hộ khẩu tạm trú: {citizen && citizen.tempaddress}
             </p>
             <p class="text-gray-700  text-md mt-4">
                 Trình độ học vấn: {citizen && citizen.academiclevel}

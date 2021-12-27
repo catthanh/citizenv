@@ -150,6 +150,7 @@ exports.inputData = async (req, res) => {
         religion,
         academiclevel,
         job,
+        addressCode,
     } = req.body;
     const citizenv = await Citizen.inputData(
         fullname,
@@ -161,7 +162,8 @@ exports.inputData = async (req, res) => {
         tempaddress,
         religion,
         academiclevel,
-        job
+        job,
+        addressCode
     );
     if (citizenv != null)
         res.json({ status: "ok", message: "Nhập dữ liệu thành công" });

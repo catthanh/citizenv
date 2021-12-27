@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { createChild } from "../helpers/role";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 
 const CitizenList = () => {
     const auth = useAuth();
@@ -317,13 +318,19 @@ const CitizenList = () => {
                                             </td>
                                             <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                                 <p className="text-gray-900 whitespace-no-wrap">
-                                                    {citizen.birthday}
+                                                    {citizen.dateofbirth}
                                                 </p>
                                             </td>
                                             <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                                <p className="text-gray-900 whitespace-no-wrap">
-                                                    {citizen.birthday}
-                                                </p>
+                                                <Link
+                                                    as="button"
+                                                    to={
+                                                        "/congdan/" + citizen.id
+                                                    }
+                                                    className="text-indigo-600 hover:text-indigo-900"
+                                                >
+                                                    Xem thêm
+                                                </Link>
                                             </td>
                                         </tr>
                                     ))}
