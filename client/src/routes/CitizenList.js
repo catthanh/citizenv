@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { createChild } from "../helpers/role";
 import { useForm } from "react-hook-form";
@@ -6,16 +6,14 @@ import { useForm } from "react-hook-form";
 const CitizenList = () => {
     const auth = useAuth();
     //const child = auth.child;
-    const [child, setChild] = useState([]);
+    const [data, setData] = useState([]);
     const [citizens, setCitizens] = useState([]);
     const [message, setMessage] = useState(null);
     const [status, setStatus] = useState(null);
     const { register, handleSubmit } = useForm();
     useEffect(() => {
         async function fetchData() {
-            setChild(
-                await auth.getChildData({ addressCode: auth.addressCode })
-            );
+            setData(await auth.getChildData({ addressCode: "" }));
         }
         fetchData();
     }, [auth]);
@@ -27,6 +25,26 @@ const CitizenList = () => {
         setMessage(response.message);
         setStatus(response.status);
     };
+    console.log(data);
+    const find = (addressCode) => {
+        if (data)
+            if ((addressCode + "").length === 2) {
+                return data.find((area) => area.addressCode === addressCode);
+            }
+        if ((addressCode + "").length === 4) {
+            let childData = find((addressCode + "").slice(0, 2));
+            return childData.find((area) => area.addressCode === addressCode);
+        }
+    };
+    console.log(
+        data.find(
+            (area) => area.addressCode === (auth.addressCode + "").slice(0, 2)
+        ) &&
+            data.find(
+                (area) =>
+                    area.addressCode === (auth.addressCode + "").slice(0, 2)
+            ).name
+    );
     return (
         <div className="container mx-auto lg:col-span-full">
             <div className="py-8">
@@ -36,50 +54,25 @@ const CitizenList = () => {
                             <div className="flex flex-col mb-2">
                                 <div className=" relative ">
                                     <label className="font-medium text-gray-700">
-                                        Chọn Tỉnh/ thành phố
+                                        Chọn tỉnh/ thành phố
                                     </label>
                                     <select
-                                        id="openaddresscode"
+                                        id="province"
+                                        disabled={
+                                            (auth.addressCode + "").length >= 2
+                                        }
+                                        defaultValue={
+                                            (auth.addressCode + "").length >= 2
+                                                ? auth.addressCode
+                                                : ""
+                                        }
                                         className="mx-1 rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                                         {...register("addressCode", {
                                             required: true,
                                             validate: {},
                                         })}
                                     >
-                                        {(auth.addressCode + "").length == 0 ? (
-                                            child.map((childArea) => (
-                                                <option
-                                                    key={childArea.addressCode}
-                                                    value={
-                                                        childArea.addressCode
-                                                    }
-                                                >
-                                                    {childArea.name}
-                                                </option>
-                                            ))
-                                        ) : (
-                                            <option
-                                                key={auth.addressCode}
-                                                value={auth.addressCode}
-                                            >
-                                                {auth.name}
-                                            </option>
-                                        )}
-                                    </select>
-                                </div>
-                                <div className=" relative ">
-                                    <label className="font-medium text-gray-700">
-                                        Chọn {` ${createChild[auth.role]}:`}
-                                    </label>
-                                    <select
-                                        id="openaddresscode"
-                                        className="mx-1 rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
-                                        {...register("addressCode", {
-                                            required: true,
-                                            validate: {},
-                                        })}
-                                    >
-                                        {child.map((childArea) => (
+                                        {data.map((childArea) => (
                                             <option
                                                 key={childArea.addressCode}
                                                 value={childArea.addressCode}
@@ -87,6 +80,98 @@ const CitizenList = () => {
                                                 {childArea.name}
                                             </option>
                                         ))}
+                                        <option
+                                            key={(auth.addressCode + "").slice(
+                                                0,
+                                                2
+                                            )}
+                                            value={(
+                                                auth.addressCode + ""
+                                            ).slice(0, 2)}
+                                        >
+                                            {data.find(
+                                                (area) =>
+                                                    area.addressCode ===
+                                                    (
+                                                        auth.addressCode + ""
+                                                    ).slice(0, 2)
+                                            )
+                                                ? data.find(
+                                                      (area) =>
+                                                          area.addressCode ===
+                                                          (
+                                                              auth.addressCode +
+                                                              ""
+                                                          ).slice(0, 2)
+                                                  ).name
+                                                : "đang tải"}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div className="flex flex-col mb-2">
+                                <div className=" relative ">
+                                    <label className="font-medium text-gray-700">
+                                        Chọn quận/ huyện
+                                    </label>
+                                    <select
+                                        id="district"
+                                        disabled={
+                                            (auth.addressCode + "").length >= 4
+                                        }
+                                        defaultValue={
+                                            (auth.addressCode + "").length >= 4
+                                                ? auth.addressCode
+                                                : ""
+                                        }
+                                        className="mx-1 rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                                        {...register("addressCode", {
+                                            required: true,
+                                            validate: {},
+                                        })}
+                                    >
+                                        {data.child &&
+                                            data.child.child &&
+                                            data.child.child.map(
+                                                (childArea) => (
+                                                    <option
+                                                        key={
+                                                            childArea.addressCode
+                                                        }
+                                                        value={
+                                                            childArea.addressCode
+                                                        }
+                                                    >
+                                                        {childArea.name}
+                                                    </option>
+                                                )
+                                            )}
+                                        {/* <option
+                                            key={(auth.addressCode + "").slice(
+                                                0,
+                                                2
+                                            )}
+                                            value={(
+                                                auth.addressCode + ""
+                                            ).slice(0, 2)}
+                                        >
+                                            {data.find(
+                                                (area) =>
+                                                    area.addressCode ===
+                                                    (
+                                                        auth.addressCode + ""
+                                                    ).slice(0, 2)
+                                            )
+                                                ? data.find(
+                                                      (area) =>
+                                                          area.addressCode ===
+                                                          (
+                                                              auth.addressCode +
+                                                              ""
+                                                          ).slice(0, 2)
+                                                  ).name
+                                                : "đang tải"}
+                                        </option> */}
                                     </select>
                                 </div>
                             </div>
@@ -134,8 +219,8 @@ const CitizenList = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {child.map((childArea) => (
-                                    <tr>
+                                {data.map((childArea) => (
+                                    <tr key={childArea.addressCode}>
                                         <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                             <div className="flex items-center">
                                                 <div className="flex-shrink-0"></div>
