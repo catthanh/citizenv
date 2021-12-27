@@ -30,7 +30,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxN
     "time_end": "2022-03-04"
 }
 ###
-GET http://localhost:5000/api/getchildarea HTTP/1.1
+POST http://localhost:5000/api/getchildarea HTTP/1.1
 content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQwNDgxMzgxfQ.2NLJ0dq_1JjJqpymJWTxHHGzOl5tucuzxnF-itUi1jI
 
@@ -153,7 +153,29 @@ content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQwNDgxMzgxfQ.2NLJ0dq_1JjJqpymJWTxHHGzOl5tucuzxnF-itUi1jI
 
 {
-    
     "addressCode": "11"
 }
 ###
+POST http://localhost:5000/api/citizennumbercatebygender HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQwNDgxMzgxfQ.2NLJ0dq_1JjJqpymJWTxHHGzOl5tucuzxnF-itUi1jI
+
+{
+    "addressCode": "11"
+}
+###
+POST http://localhost:5000/api/citizennumbercatebyage HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQwNDgxMzgxfQ.2NLJ0dq_1JjJqpymJWTxHHGzOl5tucuzxnF-itUi1jI
+
+{
+    "addressCode": "11"
+}
+###
+POST http://localhost:5000/api/citizennumbercatebyacademiclevel HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQwNDgxMzgxfQ.2NLJ0dq_1JjJqpymJWTxHHGzOl5tucuzxnF-itUi1jI
+
+{
+    "addressCode": "11"
+}
