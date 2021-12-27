@@ -20,7 +20,7 @@ function CreateArea() {
     };
 
     return (
-        <div className="flex flex-col w-full px-4 py-8 bg-white shadow-lg dark:bg-gray-800 sm:px-6 md:px-8 lg:px-10">
+        <div className="rounded-lg flex flex-col w-full px-4 py-8 bg-white shadow-lg dark:bg-gray-800 sm:px-6 md:px-8 lg:px-10">
             <div className="self-center mb-2 text-xl font-bold text-gray-800 sm:text-2xl dark:text-white">
                 Khai báo cấp mã {` ${createChild[auth.role]}`}
             </div>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../contexts/AuthContext";
-import { childCodeLength, createChild } from "../helpers/role";
+import { createChild } from "../helpers/role";
 const OpenDelaration = () => {
     const [message, setMessage] = useState(null);
     const [status, setStatus] = useState(null);
@@ -16,11 +16,7 @@ const OpenDelaration = () => {
         }
         fetchData();
     }, [auth]);
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm();
+    const { register, handleSubmit } = useForm();
     const onSubmit = async (data) => {
         console.log(data);
         const response = await auth.openDeclaration(data);
@@ -30,7 +26,7 @@ const OpenDelaration = () => {
     };
 
     return (
-        <div className="flex flex-col w-full px-4 py-8 bg-white shadow-lg dark:bg-gray-800 sm:px-6 md:px-8 lg:px-10">
+        <div className="rounded-lg flex flex-col w-full px-4 py-8 bg-white shadow-lg dark:bg-gray-800 sm:px-6 md:px-8 lg:px-10">
             <div className="self-center mb-2 text-xl font-bold text-gray-800 sm:text-2xl dark:text-white">
                 Mở quyền khai báo
             </div>

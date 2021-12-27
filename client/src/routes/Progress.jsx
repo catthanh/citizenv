@@ -16,6 +16,11 @@ const Progress = () => {
             setChild(
                 await auth.getChildData({ addressCode: auth.addressCode })
             );
+            const pp = await auth.getCitizenNumber({
+                addressCode: auth.addressCode,
+            });
+
+            setPeople(pp.citizenv);
         }
         fetchData();
     }, [auth]);
@@ -54,10 +59,13 @@ const Progress = () => {
                             </div>
                             <div className="w-full h-2 bg-green-100 rounded-full mb-4">
                                 <div
-                                    className={`w-[${
-                                        (haspermission / child.length) * 100 +
-                                        "%"
-                                    }] h-full text-center text-xs text-white bg-green-400 rounded-full`}
+                                    className={` h-full text-center text-xs text-white bg-green-400 rounded-full`}
+                                    style={{
+                                        width:
+                                            (haspermission / child.length) *
+                                                100 +
+                                            "%",
+                                    }}
                                 ></div>
                             </div>
                             <div className="flex items-center justify-between text-gray-700 text-sm">
@@ -69,9 +77,12 @@ const Progress = () => {
                             </div>
                             <div className="w-full h-2 bg-indigo-100 rounded-full mb-4">
                                 <div
-                                    className={`w-[${
-                                        (declaring / child.length) * 100 + "%"
-                                    }] h-full text-center text-xs text-white bg-indigo-400 rounded-full`}
+                                    className={` h-full text-center text-xs text-white bg-indigo-400 rounded-full`}
+                                    style={{
+                                        width:
+                                            (declaring / child.length) * 100 +
+                                            "%",
+                                    }}
                                 ></div>
                             </div>
                             <div className="flex items-center justify-between text-gray-700 text-sm">
@@ -83,14 +94,16 @@ const Progress = () => {
                             </div>
                             <div className="w-full h-2 bg-blue-100 rounded-full mb-4">
                                 <div
-                                    className={`w-[${
-                                        (done / child.length) * 100 + "%"
-                                    }] h-full text-center text-xs text-white bg-blue-400 rounded-full`}
+                                    className={` h-full text-center text-xs text-white bg-blue-400 rounded-full`}
+                                    style={{
+                                        width:
+                                            (done / child.length) * 100 + "%",
+                                    }}
                                 ></div>
                             </div>
                             <div className="flex items-center justify-between text-gray-700 text-sm">
                                 <p>Số lượng công dân đã khai báo</p>
-                                <p>8/8</p>
+                                <p>{people}</p>
                             </div>
                             <div className="w-full h-2 bg-pink-100 rounded-full">
                                 <div className="w-full h-full text-center text-xs text-white bg-pink-400 rounded-full"></div>
@@ -138,7 +151,7 @@ const Progress = () => {
                                 </thead>
                                 <tbody>
                                     {child.map((childArea) => (
-                                        <tr>
+                                        <tr key={childArea.addressCode}>
                                             <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                                 <div className="flex items-center">
                                                     <div className="flex-shrink-0"></div>
@@ -151,14 +164,24 @@ const Progress = () => {
                                             </td>
                                             <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                                 <p className="text-gray-900 whitespace-no-wrap">
-                                                    {new Date(
-                                                        childArea.time_begin
-                                                    ).toISOString()}
+                                                    {childArea.time_begin
+                                                        ? new Date(
+                                                              childArea.time_begin
+                                                          )
+                                                              .toISOString()
+                                                              .split("T")[0]
+                                                        : "chưa cấp quyền"}
                                                 </p>
                                             </td>
                                             <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                                 <p className="text-gray-900 whitespace-no-wrap">
-                                                    12/09/2020
+                                                    {childArea.time_begin
+                                                        ? new Date(
+                                                              childArea.time_end
+                                                          )
+                                                              .toISOString()
+                                                              .split("T")[0]
+                                                        : "chưa cấp quyền"}
                                                 </p>
                                             </td>
                                             <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">

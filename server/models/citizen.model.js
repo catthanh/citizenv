@@ -24,9 +24,8 @@ class Citizen {
             const [rows, fields] = await pool.query(sql, [provinceCode + "%"]);
             console.log(provinceCode);
             console.log(rows);
-            if (rows.length > 0) {
-                return rows;
-            }
+
+            return rows;
         } catch (error) {
             console.log(error);
         }
@@ -38,13 +37,13 @@ class Citizen {
         const sql = `SELECT COUNT(*) as number FROM citizen WHERE address_code LIKE ?`;
         try {
             const [rows, fields] = await pool.query(sql, [id + "%"]);
-            if(rows.length > 0) {
-                return rows;
-            }
+            console.log(rows.number);
+            return rows[0].number;
         } catch (error) {
             console.log(error);
+            return -1;
         }
-        return -1;
+        return 0;
     }
 
     //Lấy ra số người giới tính nam, giới tính nữ
