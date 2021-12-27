@@ -21,4 +21,5 @@ router.post(
 );
 router.post("/api/getchildarea", auth, AreaController.getChildArea);
 router.post("/api/getareadata", auth, AreaController.getAreaData);
+router.post("/api/citizenlist", auth, CitizenController.getCitizenList);
 module.exports = router;
