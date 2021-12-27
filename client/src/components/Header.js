@@ -34,12 +34,14 @@ const Header = ({ showMenu }) => {
                         <span className="hidden sm:inline">
                             {role[auth.role]}
                         </span>
-                        {auth.name}
+                        {auth.role === "A1" ? "" : auth.name}
                     </h1>
                 </div>
                 <div className="relative p-1 flex items-center md:w-full space-x-4 justify-end">
                     <h3 className="hidden md:flex items-center text-gray-500 dark:text-white text-md">
-                        {auth.addressCode + ",   " + auth.name}
+                        {auth.addressCode +
+                            ",   " +
+                            (auth.role === "A1" ? "" : auth.name)}
                     </h3>
                     <span className="w-1 h-8 rounded-lg bg-gray-200"></span>
                     <button

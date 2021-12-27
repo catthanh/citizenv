@@ -41,6 +41,8 @@ const Progress = () => {
             }
         }
     }, [child]);
+    console.log(child);
+    console.log(auth.addressCode);
     return (
         <>
             <div className="col-span-full">
