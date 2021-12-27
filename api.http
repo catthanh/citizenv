@@ -147,3 +147,12 @@ content-type: application/json
 
 
 // phan tich so lieu 
+###
+POST http://localhost:5000/api/citizennumber HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQwNDgxMzgxfQ.2NLJ0dq_1JjJqpymJWTxHHGzOl5tucuzxnF-itUi1jI
+
+{
+    
+    "addressCode": "11"
+}
