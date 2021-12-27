@@ -56,6 +56,3 @@ exports.getCitizenInfo = async (req, res) => {
         res.json({status: "error", message: "Lấy dữ liệu người dân không thành công"});
     }
 }
-
-
-
