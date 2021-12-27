@@ -11,7 +11,6 @@ const CitizenList = () => {
     const [message, setMessage] = useState(null);
     const [status, setStatus] = useState(null);
     const { register, handleSubmit, watch, getValues, setValue } = useForm();
-    const watch1 = watch("addressCode1");
     useEffect(() => {
         async function fetchData() {
             setData(await auth.getChildData({ addressCode: "" }));
@@ -21,6 +20,9 @@ const CitizenList = () => {
                 setValue("addressCode2", (auth.addressCode + "").slice(0, 4));
             (auth.addressCode + "").length === 6 &&
                 setValue("addressCode3", (auth.addressCode + "").slice(0, 6));
+            setCitizens(
+                await auth.getCitizenList({ addressCode: auth.addressCode })
+            );
         }
         fetchData();
     }, [auth, setValue]);
@@ -259,84 +261,72 @@ const CitizenList = () => {
                                         scope="col"
                                         className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
                                     >
-                                        {createChild[auth.role]}
+                                        {" "}
+                                        Tên:
                                     </th>
                                     <th
                                         scope="col"
                                         className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
                                     >
-                                        Thời gian bắt đầu:
+                                        CMND
                                     </th>
                                     <th
                                         scope="col"
                                         className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
                                     >
-                                        Thời gian kết thúc
+                                        Quê quán
                                     </th>
                                     <th
                                         scope="col"
                                         className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
                                     >
-                                        Đã hoàn thành:
+                                        Ngày sinh:
                                     </th>
                                     <th
                                         scope="col"
                                         className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
-                                    ></th>
+                                    >
+                                        Xem thêm:
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {data.map((childArea) => (
-                                    <tr key={childArea.addressCode}>
-                                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                            <div className="flex items-center">
-                                                <div className="flex-shrink-0"></div>
-                                                <div className="ml-3">
-                                                    <p className="text-gray-900 whitespace-no-wrap">
-                                                        {childArea.name}
-                                                    </p>
+                                {citizens &&
+                                    citizens.length > 0 &&
+                                    citizens.map((citizen) => (
+                                        <tr key={citizen.id}>
+                                            <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                <div className="flex items-center">
+                                                    <div className="flex-shrink-0"></div>
+                                                    <div className="ml-3">
+                                                        <p className="text-gray-900 whitespace-no-wrap">
+                                                            {citizen.fullname}
+                                                        </p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                            <p className="text-gray-900 whitespace-no-wrap">
-                                                {new Date(
-                                                    childArea.time_begin
-                                                ).toISOString()}
-                                            </p>
-                                        </td>
-                                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                            <p className="text-gray-900 whitespace-no-wrap">
-                                                12/09/2020
-                                            </p>
-                                        </td>
-                                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                            <span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
-                                                <span
-                                                    aria-hidden="true"
-                                                    className={`absolute inset-0 ${
-                                                        childArea.time_done
-                                                            ? "bg-green-200"
-                                                            : "bg-red-200"
-                                                    } opacity-50 rounded-full`}
-                                                ></span>
-                                                <span className="relative">
-                                                    {childArea.time_done
-                                                        ? "đã hoàn thành"
-                                                        : "chưa hoàn thành"}
-                                                </span>
-                                            </span>
-                                        </td>
-                                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                            <button
-                                                href="#"
-                                                className="text-indigo-600 hover:text-indigo-900"
-                                            >
-                                                Cấp quyền
-                                            </button>
-                                        </td>
-                                    </tr>
-                                ))}
+                                            </td>
+                                            <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                <p className="text-gray-900 whitespace-no-wrap">
+                                                    {citizen.CMND}
+                                                </p>
+                                            </td>
+                                            <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                <p className="text-gray-900 whitespace-no-wrap">
+                                                    {citizen.countryside}
+                                                </p>
+                                            </td>
+                                            <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                <p className="text-gray-900 whitespace-no-wrap">
+                                                    {citizen.birthday}
+                                                </p>
+                                            </td>
+                                            <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                <p className="text-gray-900 whitespace-no-wrap">
+                                                    {citizen.birthday}
+                                                </p>
+                                            </td>
+                                        </tr>
+                                    ))}
                             </tbody>
                         </table>
                     </div>

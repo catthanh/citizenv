@@ -94,7 +94,7 @@ exports.getCitizenNumberCateByAcademicLevel = async (req, res) => {
 };
 
 exports.getCitizenInfo = async (req, res) => {
-    const citizenv = await Citizen.getCitizenInfo(req.body.addressCode);
+    const citizenv = await Citizen.getCitizenInfo(req.body.id);
     if (citizenv !== null) {
         res.json({
             citizenv,
@@ -110,7 +110,19 @@ exports.getCitizenInfo = async (req, res) => {
 };
 
 exports.inputData = async (req, res) => {
-    const {id_citizen, ten, ngaysinh, gioitinh, CCCD, quequqn, dcthuongtru, dctamtru, tongiao, trinhdovh, nghe} = req.body;
+    const {
+        id_citizen,
+        ten,
+        ngaysinh,
+        gioitinh,
+        CCCD,
+        quequqn,
+        dcthuongtru,
+        dctamtru,
+        tongiao,
+        trinhdovh,
+        nghe,
+    } = req.body;
     const answer1 = new Citizen(id_citizen, "1", ten);
     const answer2 = new Citizen(id_citizen, "2", ngaysinh);
     const answer3 = new Citizen(id_citizen, "3", gioitinh);
@@ -122,14 +134,32 @@ exports.inputData = async (req, res) => {
     const answer9 = new Citizen(id_citizen, "9", trinhdovh);
     const answer10 = new Citizen(id_citizen, "10", nghe);
 
-    if (answer1.checkDuplicate() && answer2.checkDuplicate() && answer3.checkDuplicate() && 
-        answer4.checkDuplicate() && answer5.checkDuplicate() && answer6.checkDuplicate() && 
-        answer7.checkDuplicate() && answer8.checkDuplicate() && answer9.checkDuplicate() && answer10.checkDuplicate()){
-        res.json({status: "error", message: "Trùng câu hỏi"});
-    } else if (answer1.inputData() && answer2.inputData() && answer3.inputData() && answer4.inputData() && 
-        answer5.inputData() && answer6.inputData() && answer7.inputData() && answer8.inputData() && 
-        answer9.inputData() && answer10.inputData()) {
-            res.json({status: "ok", message: "Nhập dữ liệu thành công"});
-    }
-    else res.json({status: "error", message: "Nhập không dữ liệu thành công"});
-}
+    if (
+        answer1.checkDuplicate() &&
+        answer2.checkDuplicate() &&
+        answer3.checkDuplicate() &&
+        answer4.checkDuplicate() &&
+        answer5.checkDuplicate() &&
+        answer6.checkDuplicate() &&
+        answer7.checkDuplicate() &&
+        answer8.checkDuplicate() &&
+        answer9.checkDuplicate() &&
+        answer10.checkDuplicate()
+    ) {
+        res.json({ status: "error", message: "Trùng câu hỏi" });
+    } else if (
+        answer1.inputData() &&
+        answer2.inputData() &&
+        answer3.inputData() &&
+        answer4.inputData() &&
+        answer5.inputData() &&
+        answer6.inputData() &&
+        answer7.inputData() &&
+        answer8.inputData() &&
+        answer9.inputData() &&
+        answer10.inputData()
+    ) {
+        res.json({ status: "ok", message: "Nhập dữ liệu thành công" });
+    } else
+        res.json({ status: "error", message: "Nhập không dữ liệu thành công" });
+};

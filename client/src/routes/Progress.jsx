@@ -202,12 +202,13 @@ const Progress = () => {
                                                 </span>
                                             </td>
                                             <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                                <button
-                                                    href="#"
+                                                <Link
+                                                    as="button"
+                                                    to="/quanly"
                                                     className="text-indigo-600 hover:text-indigo-900"
                                                 >
                                                     Cấp quyền
-                                                </button>
+                                                </Link>
                                             </td>
                                         </tr>
                                     ))}

@@ -7,6 +7,8 @@ import Manage from "./routes/Manage";
 import Progress from "./routes/Progress";
 import CitizenList from "./routes/CitizenList";
 import FillData from "./components/FillData";
+import CitizenInfo from "./routes/CitizenInfo";
+import Analytic from "./routes/Analytic";
 function App() {
     return (
         <>
@@ -21,10 +23,11 @@ function App() {
                     }
                 >
                     <Route path="danhsach" element={<CitizenList />} />
-                    <Route path="congdan/:id" element={<p>congdan</p>} />
+                    <Route path="congdan/:id" element={<CitizenInfo />} />
                     <Route path="quanly" element={<Manage />} />
                     <Route path="tiendo" element={<Progress />} />
                     <Route path="nhaplieu" element={<FillData />} />
+                    <Route path="phantich" element={<Analytic />} />
                     <Route index element={<Navigate to={"tiendo"} />} />
                 </Route>
             </Routes>

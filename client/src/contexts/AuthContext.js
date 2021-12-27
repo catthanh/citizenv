@@ -102,6 +102,31 @@ const AuthProvider = ({ children }) => {
         });
         return response.json();
     };
+    const getCitizenInfo = async (data) => {
+        const response = await fetch("/api/citizeninfo", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + localStorage.getItem("jwt"),
+            },
+            credentials: "include",
+            body: JSON.stringify(data),
+        });
+        return response.json();
+    };
+    const filldata = async (data) => {
+        const response = await fetch("/api/filldata", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + localStorage.getItem("jwt"),
+            },
+            credentials: "include",
+            body: JSON.stringify(data),
+        });
+
+        return response.json();
+    };
     const getCitizenNumber = async (data) => {
         const response = await fetch("/api/citizennumber", {
             method: "POST",
@@ -116,6 +141,8 @@ const AuthProvider = ({ children }) => {
         return response.json();
     };
     const authContextValue = {
+        getCitizenInfo,
+        filldata,
         getCitizenNumber,
         getCitizenList,
         getChildData,

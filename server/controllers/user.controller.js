@@ -5,6 +5,7 @@ const { getAreaData } = require("../models/area.model");
 exports.login = async (req, res) => {
     const { username, password } = req.body;
     const user = await User.findOne({ username });
+    console.log(user);
     const address_code = user.address_code;
     const area = await Area.findOne({ address_code });
     console.log(area);

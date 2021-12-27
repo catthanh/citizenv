@@ -5,13 +5,15 @@ class User {
         this.password = password;
         this.role = role;
         this.address_code = address_code;
+        this.id = id;
     }
     static create(user = {}) {
         return new this(
             user.username,
             user.password,
             user.role,
-            user.address_code
+            user.address_code,
+            user.id
         );
     }
 
@@ -106,7 +108,7 @@ class User {
             qry = `SELECT * FROM users where address_code = ${user.address_code}`;
         try {
             const [rows, fields] = await pool.query(qry);
-            console.log(rows.length);
+            console.log(rows[0]);
             if (rows.length >= 1) {
                 return this.create(rows[0]);
             }
