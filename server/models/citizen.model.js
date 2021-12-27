@@ -34,72 +34,72 @@ class Citizen {
     }
 
     //Láy ra thông tin người dân trên 1 thành phố hoặc địa phương
-    static async getCitizenListFromCity(provinceCode, districtCode) {
-        const sql = `SELECT * FROM citizen c
-                    JOIN answer a ON c.id = a.id_citizen
-                    WHERE c.address_code LIKE ?`;
-        try {
-            provinceCode = provinceCode.toString();
-            districtCode = districtCode.toString();
-            var districtID = provinceCode + districtCode;
-            const [rows, fields] = await pool.query(sql, [districtID + "%"]);
-            //console.log(rows);
-            if (rows.length > 0) {
-                return rows;
-            }
-        } catch (error) {
-            console.log(error);
-        }
-        return null;
-    }
+    // static async getCitizenListFromCity(provinceCode, districtCode) {
+    //     const sql = `SELECT * FROM citizen c
+    //                 JOIN answer a ON c.id = a.id_citizen
+    //                 WHERE c.address_code LIKE ?`;
+    //     try {
+    //         provinceCode = provinceCode.toString();
+    //         districtCode = districtCode.toString();
+    //         var districtID = provinceCode + districtCode;
+    //         const [rows, fields] = await pool.query(sql, [districtID + "%"]);
+    //         //console.log(rows);
+    //         if (rows.length > 0) {
+    //             return rows;
+    //         }
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    //     return null;
+    // }
 
     //Láy ra thông tin người dân trên 1 phường, xã
-    static async getCitizenListFromWard(provinceCode, districtCode, wardCode) {
-        const sql = `SELECT * FROM citizen c
-                    JOIN answer a ON c.id = a.id_citizen
-                    WHERE address_code LIKE ?`;
-        try {
-            provinceCode = provinceCode.toString();
-            districtCode = districtCode.toString();
-            wardCode = wardCode.toString();
-            var wardID = provinceCode + districtCode + wardCode;
-            const [rows, fields] = await pool.query(sql, [wardID + "%"]);
-            console.log(rows);
-            if (rows.length > 0) {
-                return rows;
-            }
-        } catch (error) {
-            console.log(error);
-        }
-        return null;
-    }
+    // static async getCitizenListFromWard(provinceCode, districtCode, wardCode) {
+    //     const sql = `SELECT * FROM citizen c
+    //                 JOIN answer a ON c.id = a.id_citizen
+    //                 WHERE address_code LIKE ?`;
+    //     try {
+    //         provinceCode = provinceCode.toString();
+    //         districtCode = districtCode.toString();
+    //         wardCode = wardCode.toString();
+    //         var wardID = provinceCode + districtCode + wardCode;
+    //         const [rows, fields] = await pool.query(sql, [wardID + "%"]);
+    //         console.log(rows);
+    //         if (rows.length > 0) {
+    //             return rows;
+    //         }
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    //     return null;
+    // }
 
     //Lấy ra thông tin người dân trên 1 thôn, bản
-    static async getCitizenListFromArea(
-        provinceCode,
-        districtCode,
-        wardCode,
-        areaCode
-    ) {
-        const sql = `SELECT * FROM citizen c
-                    JOIN answer a ON c.id = a.id_citizen
-                    WHERE address_code LIKE ?`;
-        try {
-            provinceCode = provinceCode.toString();
-            districtCode = districtCode.toString();
-            wardCode = wardCode.toString();
-            areaCode = areaCode.toString();
-            var areaID = provinceCode + districtCode + wardCode + areaCode;
-            const [rows, fields] = await pool.query(sql, [areaID]);
-            console.log(rows);
-            if (rows.length > 0) {
-                return rows;
-            }
-        } catch (error) {
-            console.log(error);
-        }
-        return null;
-    }
+    // static async getCitizenListFromArea(
+    //     provinceCode,
+    //     districtCode,
+    //     wardCode,
+    //     areaCode
+    // ) {
+    //     const sql = `SELECT * FROM citizen c
+    //                 JOIN answer a ON c.id = a.id_citizen
+    //                 WHERE address_code LIKE ?`;
+    //     try {
+    //         provinceCode = provinceCode.toString();
+    //         districtCode = districtCode.toString();
+    //         wardCode = wardCode.toString();
+    //         areaCode = areaCode.toString();
+    //         var areaID = provinceCode + districtCode + wardCode + areaCode;
+    //         const [rows, fields] = await pool.query(sql, [areaID]);
+    //         console.log(rows);
+    //         if (rows.length > 0) {
+    //             return rows;
+    //         }
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    //     return null;
+    // }
 
     //Lấy ra thông tin số người trong 1 tỉnh
     static async getCitizenListCateByProvince(id) {
