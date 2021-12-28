@@ -81,7 +81,7 @@ const Analytic = () => {
                     <div className="flex items-center mb-2 pb-2 text-sm space-x-12 md:space-x-24 justify-between border-b border-gray-200">
                         <p>Người lớn từ 26 đến 40</p>
                         <div className="flex items-end text-xs">
-                            {age && age.pre_old}
+                            {age && age.adult}
                         </div>
                     </div>
                     <div className="flex items-center mb-2 pb-2 text-sm space-x-12 md:space-x-24 justify-between border-b border-gray-200">
