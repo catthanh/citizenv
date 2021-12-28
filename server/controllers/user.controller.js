@@ -36,7 +36,7 @@ exports.checkPermission = (parentCode, childCode) => {
 
 exports.createArea = async (req, res) => {
     const { addressCode, name, password, user } = req.body;
-    const area = await Area.findOne({ id: addressCode });
+    const area = await Area.findOne({ area: addressCode });
 
     if (area)
         res.json({
