@@ -1,7 +1,9 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 
 const Nav = ({ closeModal }) => {
+    const auth = useAuth();
     const location = useLocation();
     const path = location.pathname;
     console.log(path);
@@ -102,30 +104,34 @@ const Nav = ({ closeModal }) => {
                     </span>
                     <span className="mx-2 text-sm font-normal">Phân tích</span>
                 </Link>
-                <Link
-                    onClick={() => closeModal()}
-                    className={`w-full text-gray-800 flex items-center pl-6 p-2 my-2 transition-colors duration-200 justify-start ${
-                        path === "/nhaplieu" &&
-                        "border-l-4 border-purple-500 bg-purple-100"
-                    }`}
-                    to="/nhaplieu"
-                >
-                    <svg
-                        className="w-6 h-6"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
+                {(auth.addressCode + "").length >= 6 && (
+                    <Link
+                        onClick={() => closeModal()}
+                        className={`w-full text-gray-800 flex items-center pl-6 p-2 my-2 transition-colors duration-200 justify-start ${
+                            path === "/nhaplieu" &&
+                            "border-l-4 border-purple-500 bg-purple-100"
+                        }`}
+                        to="/nhaplieu"
                     >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
-                        />
-                    </svg>
-                    <span className="mx-2 text-sm font-normal">Nhập liệu</span>
-                </Link>
+                        <svg
+                            className="w-6 h-6"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                            />
+                        </svg>
+                        <span className="mx-2 text-sm font-normal">
+                            Nhập liệu
+                        </span>
+                    </Link>
+                )}
             </div>
         </nav>
     );
